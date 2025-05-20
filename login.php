@@ -1,0 +1,105 @@
+<?php
+
+$is_invalid = false;
+
+// check if form is submitted
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+
+    // connect to database
+    $mysqli = require __DIR__ . "/database.php";
+
+    // check records
+    $query = sprintf("SELECT * FROM users WHERE email = '%s'", 
+                    $mysqli->real_escape_string($_POST["email"]));
+
+    $result = $mysqli->query($query);
+
+    // get results
+    $user = $result->fetch_assoc();
+
+    // if user exists
+    if ($user) {
+        // check password
+        if (password_verify($_POST["password"], $user["password_hash"])) {
+            session_start();
+
+            // regenerate to avoid session fixation attack
+            session_regenerate_id();
+
+            $_SESSION["user_id"] = $user["id"];
+
+            // redirect to home page
+            header("Location: index.php");
+            exit;
+        } 
+    }
+
+    // if wrong password
+    $is_invalid = true;
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="styles/global.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- to be edited / removed-->
+    <nav>
+        <a href="index.php" class="nav-logo">SHORTURL</a>
+
+        <ul class="nav-links">
+            <li class="link"><a href="">Features</a></li>
+            <li class="link"><a href="">About</a></li>
+        </ul>
+
+        <div class="nav-btn">
+            <?php
+            if (isset($user)): ?>
+                <a href="logout.php" class="btn" id="signup-btn">Log out</a>
+            <?php else: ?>
+                <!-- If user is not logged in, redirect to sign up page -->
+                <a href="login.php" class="btn" id="login-btn">Log in</a>
+                <a href="signup.php" class="btn" id="signup-btn">Start for Free</a>
+            <?php endif; ?>
+
+        </div>
+    </nav>
+
+    <main>
+        <div class="container" id="form-cnt">
+            <h1> Login </h1>
+
+            <form action="login.php" method="post">
+                <div>
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email"
+                            value="<?= htmlspecialchars($_POST["email"] ?? "") ?>">
+                        <!-- ^^ retains email in input box when reloading the form --> 
+                </div>
+
+                <div>
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password">
+                </div>
+                
+                <!-- displays error when email / password is wrong --> 
+                <?php if ($is_invalid): ?>
+                    <span class="invalid">Invalid email or password</span>
+                <?php endif; ?>
+                <button class="btn" id="form-btn">Login</button>
+            </form>
+            <a href="forgot-password.php">Forgot Password?</a>
+            <a href="signup.php">Sign up</a>
+        </div>
+
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,5 @@
+# Composer Dependencies
+/vendor/
+
+# environment config
+# .env - to be ignored on..
