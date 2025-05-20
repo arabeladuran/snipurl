@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $_SESSION["user_id"] = $user["id"];
 
             // redirect to home page
-            header("Location: index.php");
+            header("Location: dashboard.php");
             exit;
         } 
     }

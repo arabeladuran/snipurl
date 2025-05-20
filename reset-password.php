@@ -5,6 +5,7 @@ $token = $_GET["token"] ?? null;
 if (!$token) {
     die("Invalid or missing token.");
 }
+
 // check if token is valid
 $token_hash = hash("sha256", $token);
 
