@@ -10,7 +10,11 @@
     box-shadow: 0 0px 3px rgba(0, 0, 0, 0.25);
     max-width: 800px;
     width: 100%;
+<<<<<<< HEAD
     max-height: 10px;
+=======
+    height: 800px;
+>>>>>>> 88c8a589aa08df4c317e41bc35acca407fe6b9fc
 
 }
 
