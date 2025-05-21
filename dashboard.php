@@ -158,32 +158,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <h2>Quick Create</h2>
 
                 <div class ="db-container">
-                    <div class="container">
-                        <p> <label class="db-txt" for="long-url">Enter long URL</label> </p>
-                        <input type="text" id="long-url" name="long-url" placeholder="e.g. https://example.com/longlink"
-                        value="<?= htmlspecialchars($_POST["email"] ?? "") ?>">
-                    </div>
-                    <?php if (isset($errors["long_url"])): ?>
-                        <em class="invalid"><?= $errors["long_url"] ?></em>
-                    <?php endif; ?>
-                    <div>
-                        <p> <label class="db-txt" for="title">Title (Optional)</label> </p>
-                        <input type="text" id="title" name="title"
-                        value="<?= htmlspecialchars($_POST["email"] ?? "") ?>">
-                    </div>
-                    <div>
-                        <p> <label for="short-url">Custom URL</label> </p>
-                        <div class="db-def-url">
-                            <input type="text" id="default-url" value="www.snip-url.com" readonly>
-                            <span> / </span>
-                            <input type="text" id="short-url" name="short-url"
-                            value="<?= htmlspecialchars($_POST["email"] ?? "") ?>">
-                        </div>
-                    </div>
-              
-
-
-                <div class ="db-container">
                         <div class="container">
                             <p> <label class="db-txt" for="long-url">Enter long URL</label> </p>
                             <input type="text" id="long-url" name="long-url" placeholder="e.g. https://example.com/longlink"
