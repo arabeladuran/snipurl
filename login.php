@@ -53,23 +53,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <!-- to be edited / removed-->
     <nav>
         <a href="index.php" class="nav-logo">SHORTURL</a>
-
-        <ul class="nav-links">
-            <li class="link"><a href="">Features</a></li>
-            <li class="link"><a href="">About</a></li>
-        </ul>
-
-        <div class="nav-btn">
-            <?php
-            if (isset($user)): ?>
-                <a href="logout.php" class="btn" id="signup-btn">Log out</a>
-            <?php else: ?>
-                <!-- If user is not logged in, redirect to sign up page -->
-                <a href="login.php" class="btn" id="login-btn">Log in</a>
-                <a href="signup.php" class="btn" id="signup-btn">Start for Free</a>
-            <?php endif; ?>
-
-        </div>
     </nav>
 
     <main>
@@ -78,25 +61,24 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             <form action="login.php" method="post">
                 <div>
-                    <label for="email">Email</label>
                     <input type="email" id="email" name="email"
                             value="<?= htmlspecialchars($_POST["email"] ?? "") ?>">
                         <!-- ^^ retains email in input box when reloading the form --> 
                 </div>
 
                 <div>
-                    <label for="password">Password</label>
                     <input type="password" id="password" name="password">
                 </div>
-                
+                <p style="text-align:center"> <a href="forgot-password.php">Forgot Password?</a> </p>
+
                 <!-- displays error when email / password is wrong --> 
                 <?php if ($is_invalid): ?>
                     <span class="invalid">Invalid email or password</span>
                 <?php endif; ?>
-                <button class="btn" id="form-btn">Login</button>
+                <button class="btn" class="btn">Login</button>
             </form>
-            <a href="forgot-password.php">Forgot Password?</a>
-            <a href="signup.php">Sign up</a>
+            <p> Don't have an account yet? 
+            <a href="signup.php">Sign up</a> </p>
         </div>
 
     </main>
