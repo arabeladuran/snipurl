@@ -59,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                   WHERE id = ?";
 
         $stmt = $mysqli->prepare($query);
-        $stmt->bind_param("ss", $token_hash, $user["id"]);
+        $stmt->bind_param("ss", $password_hash, $user["id"]);
         $stmt->execute();
 
         echo ("Password has been changed. Redirecting to Login...");

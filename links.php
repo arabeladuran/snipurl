@@ -45,7 +45,7 @@ $links = $result->fetch_all(MYSQLI_ASSOC);
                     <input type="text" placeholder="Search">
                     <button class="btn" id="form-btn">SORT</button>
                 </form>
-                <button class="btn">Create Link</button>
+                <a href="dashboard.php">Create Link</a>
             </div>
 
             <div class="link-list">
@@ -55,10 +55,11 @@ $links = $result->fetch_all(MYSQLI_ASSOC);
                     <?php foreach ($links as $link): ?>
 
                         <div>
-                            <h2>Link Title</h2>
+                            <h2><?= htmlspecialchars($link['title'] ?? 'Untitled') ?></h2>
+
 
                             <form action="edit-link.php" method="post"">
-                                <input type="hidden" name="short_url" value="" <?= htmlspecialchars($link['short_url']) ?>">
+                                <input type="hidden" name="short_url" value="<?= htmlspecialchars($link['short_url']) ?>">
                                 <button class="btn" id="form-btn">Edit</button>
                             </form>
 

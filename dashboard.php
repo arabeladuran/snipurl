@@ -61,11 +61,12 @@ function isLinkValid(&$long_url) {
     return true;
 }
 
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $long_url = trim($_POST["long-url"]);
     $short_url = trim($_POST["short-url"]);
-    // $title = trim($_POST["title"]);
+    $title = trim($_POST["title"]);
     $user_id = $_SESSION["user_id"];
 
     $errors = [];
@@ -75,6 +76,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $errors["long_url"] =  "Enter a link";
     } elseif (! isLinkValid($long_url)) {
         $errors["long_url"] = "Please enter a valid link";
+    }
+
+    if (empty($title)) {
+        $title = "Untitled";
     }
 
     if (empty($errors)) {
@@ -92,9 +97,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if (empty($errors)) {
             $created_at = date("Y-m-d H:i:s", time());
 
-            $query = "INSERT INTO links (user_id, long_url, short_url, created_at) VALUES (?, ?, ?, ?)";
+            $query = "INSERT INTO links (user_id, title, long_url, short_url, created_at) VALUES (?, ?, ?, ?, ?)";
             $stmt = $mysqli->prepare($query);
-            $stmt->bind_param("isss", $user_id, $long_url, $short_url, $created_at);
+            $stmt->bind_param("issss", $user_id, $title, $long_url, $short_url, $created_at);
             $stmt->execute();
 
             $success = "Link created!";
@@ -125,7 +130,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <div>
                     <label for="long-url">Enter long URL</label>
                     <input type="text" id="long-url" name="long-url" placeholder="e.g. https://example.com/longlink"
-                    value="<?= htmlspecialchars($_POST["email"] ?? "") ?>">
+                    value="<?= htmlspecialchars($_POST["long-url"] ?? "") ?>">
                 </div>
                 <?php if (isset($errors["long_url"])): ?>
                     <em class="invalid"><?= $errors["long_url"] ?></em>
@@ -133,13 +138,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <div>
                     <label for="title">Title (Optional)</label>
                     <input type="text" id="title" name="title"
-                    value="<?= htmlspecialchars($_POST["email"] ?? "") ?>">
+                    value="<?= htmlspecialchars($_POST["title"] ?? "") ?>">
                 </div>
                 <div>
                     <label for="short-url">Custom URL</label>
                     <input type="text" value="snip-url.com/" readonly>
                     <input type="text" id="short-url" name="short-url"
-                    value="<?= htmlspecialchars($_POST["email"] ?? "") ?>">
+                    value="<?= htmlspecialchars($_POST["short-url"] ?? "") ?>">
                 </div>
                 <?php if (isset($errors["short_url"])): ?>
                     <em class="invalid"><?= $errors["short_url"] ?></em>
