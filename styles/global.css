@@ -18,34 +18,3 @@ a {
     text-decoration: none;
 }
 
-.btn {
-    padding: 10px 30px;
-    border: 2px black solid;
-    border-radius: 8px;
-    background-color: white;
-    cursor: pointer;
-    color: black;
-}
-
-.container {
-    max-width: 1200px;
-    margin: auto;
-    padding: 5rem 2rem;
-}
-
-#shortenlink-cnt {
-    margin: 80px auto;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-}
-
-.input {
-    width: 500px;
-    height: 40px;
-    border: 1px gray solid;
-    display: inline-block;
-    cursor: pointer;
-}
