@@ -100,23 +100,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <!-- to be edited / removed-->
     <nav>
         <a href="index.php" class="nav-logo">SHORTURL</a>
-
-        <ul class="nav-links">
-            <li class="link"><a href="">Features</a></li>
-            <li class="link"><a href="">About</a></li>
-        </ul>
-
-        <div class="nav-btn">
-            <?php
-            if (isset($user)): ?>
-                <a href="logout.php" class="btn" id="signup-btn">Log out</a>
-            <?php else: ?>
-                <!-- If user is not logged in, redirect to sign up page -->
-                <a href="login.php" class="btn" id="login-btn">Log in</a>
-                <a href="signup.php" class="btn" id="signup-btn">Start for Free</a>
-            <?php endif; ?>
-
-        </div>
     </nav>
 
     <main>

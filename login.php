@@ -75,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <?php if ($is_invalid): ?>
                     <span class="invalid">Invalid email or password</span>
                 <?php endif; ?>
-                <button class="btn" class="btn">Login</button>
+                <button class="btn">Login</button>
             </form>
             <p> Don't have an account yet? 
             <a href="signup.php">Sign up</a> </p>

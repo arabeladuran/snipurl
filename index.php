@@ -27,11 +27,6 @@ if (isset($_SESSION["user_id"])) {
     <nav>
         <a href="index.php" class="nav-logo">SHORTURL</a>
 
-        <ul class="nav-links">
-            <li class="link"><a href="">Features</a></li>
-            <li class="link"><a href="">About</a></li>
-        </ul>
-
         <div class="nav-btn">
             <?php
             if (isset($user)): ?>
