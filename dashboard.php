@@ -117,30 +117,35 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 <body>
     <main>
-        <div class="container">
+        <div>
             <h1>Home</h1>
             <form method="post">
                 <!-- Link to shorten -->
                 <h2>Quick Create</h2>
-                <div>
-                    <label for="long-url">Enter long URL</label>
-                    <input type="text" id="long-url" name="long-url" placeholder="e.g. https://example.com/longlink"
-                    value="<?= htmlspecialchars($_POST["email"] ?? "") ?>">
-                </div>
-                <?php if (isset($errors["long_url"])): ?>
-                    <em class="invalid"><?= $errors["long_url"] ?></em>
-                <?php endif; ?>
-                <div>
-                    <label for="title">Title (Optional)</label>
-                    <input type="text" id="title" name="title"
-                    value="<?= htmlspecialchars($_POST["email"] ?? "") ?>">
-                </div>
-                <div>
-                    <label for="short-url">Custom URL</label>
-                    <input type="text" value="snip-url.com/" readonly>
-                    <input type="text" id="short-url" name="short-url"
-                    value="<?= htmlspecialchars($_POST["email"] ?? "") ?>">
-                </div>
+                <div class ="db-container">
+                    <div class="container">
+                        <p> <label class="db-txt" for="long-url">Enter long URL</label> </p>
+                        <input type="text" id="long-url" name="long-url" placeholder="e.g. https://example.com/longlink"
+                        value="<?= htmlspecialchars($_POST["email"] ?? "") ?>">
+                    </div>
+                    <?php if (isset($errors["long_url"])): ?>
+                        <em class="invalid"><?= $errors["long_url"] ?></em>
+                    <?php endif; ?>
+                    <div>
+                        <p> <label class="db-txt" for="title">Title (Optional)</label> </p>
+                        <input type="text" id="title" name="title"
+                        value="<?= htmlspecialchars($_POST["email"] ?? "") ?>">
+                    </div>
+                    <div>
+                        <p> <label for="short-url">Custom URL</label> </p>
+                        <div class="db-def-url">
+                            <input type="text" id="default-url" value="www.snip-url.com" readonly>
+                            <span> / </span>
+                            <input type="text" id="short-url" name="short-url"
+                            value="<?= htmlspecialchars($_POST["email"] ?? "") ?>">
+                        </div>
+                    </div>
+              
                 <?php if (isset($errors["short_url"])): ?>
                     <em class="invalid"><?= $errors["short_url"] ?></em>
                 <?php endif; ?>
@@ -151,7 +156,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <?php endif; ?>
 
                 <button class="btn" id="form-btn">Snip your link</button>
-            </form>
+                 </form>
+            </div>
         </div>
 
     </main>
