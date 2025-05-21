@@ -1,6 +1,14 @@
 <?php
 session_start();
 $mysqli = require __DIR__ . "/database.php";
+require "vendor/autoload.php";
+
+use Endroid\QrCode\QrCode;
+use Endroid\QrCode\Writer\PngWriter;
+use Endroid\QrCode\Color\Color;
+
+
+
 
 // prevent access to dashboard when not logged in
 if (!isset($_SESSION["user_id"])) {
@@ -31,7 +39,8 @@ function isCodeUnique($mysqli, $short_url): bool
     return $stmt->get_result()->num_rows === 0;
 }
 
-function isLinkValid(&$long_url) {
+function isLinkValid(&$long_url)
+{
     if (!preg_match("~^(http|https)://~", $long_url)) {
         $long_url = "https://" . $long_url;
     }
@@ -49,7 +58,7 @@ function isLinkValid(&$long_url) {
     if (substr_count($url_parts['host'], '.') < 1) {
         return false;
     }
-    
+
     // heck that domain and TLD have minimum length, e.g. domain >= 2 chars
     $host_parts = explode('.', $url_parts['host']);
     foreach ($host_parts as $part) {
@@ -68,6 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $short_url = trim($_POST["short-url"]);
     $title = trim($_POST["title"]);
     $user_id = $_SESSION["user_id"];
+    $has_qr = isset($_POST["generate_qr"]) ? 1 : 0;
 
     $errors = [];
 
@@ -97,10 +107,29 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if (empty($errors)) {
             $created_at = date("Y-m-d H:i:s", time());
 
-            $query = "INSERT INTO links (user_id, title, long_url, short_url, created_at) VALUES (?, ?, ?, ?, ?)";
+            $query = "INSERT INTO links (user_id, title, long_url, short_url, has_qr, created_at) VALUES (?, ?, ?, ?, ?, ?)";
             $stmt = $mysqli->prepare($query);
-            $stmt->bind_param("issss", $user_id, $title, $long_url, $short_url, $created_at);
+            $stmt->bind_param("isssis", $user_id, $title, $long_url, $short_url, $has_qr, $created_at);
             $stmt->execute();
+
+            if ($has_qr) {
+                $writer = new PngWriter();
+
+                // Create QR code
+                $qrCode = new QrCode(
+                    data: $long_url,
+                    size: 300,
+                    margin: 10,
+                    foregroundColor: new Color(0, 0, 0),
+                    backgroundColor: new Color(255, 255, 255)
+                );
+
+                // Write the result
+                $result = $writer->write($qrCode);
+
+                // Convert to base64
+                $qrImage = base64_encode($result->getString());
+            }
 
             $success = "Link created!";
         }
@@ -130,7 +159,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <div>
                     <label for="long-url">Enter long URL</label>
                     <input type="text" id="long-url" name="long-url" placeholder="e.g. https://example.com/longlink"
-                    value="<?= htmlspecialchars($_POST["long-url"] ?? "") ?>">
+                        value="<?= htmlspecialchars($_POST["long-url"] ?? "") ?>">
                 </div>
                 <?php if (isset($errors["long_url"])): ?>
                     <em class="invalid"><?= $errors["long_url"] ?></em>
@@ -138,22 +167,34 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <div>
                     <label for="title">Title (Optional)</label>
                     <input type="text" id="title" name="title"
-                    value="<?= htmlspecialchars($_POST["title"] ?? "") ?>">
+                        value="<?= htmlspecialchars($_POST["title"] ?? "") ?>">
                 </div>
                 <div>
                     <label for="short-url">Custom URL</label>
                     <input type="text" value="snip-url.com/" readonly>
                     <input type="text" id="short-url" name="short-url"
-                    value="<?= htmlspecialchars($_POST["short-url"] ?? "") ?>">
+                        value="<?= htmlspecialchars($_POST["short-url"] ?? "") ?>">
+                </div>
+                <div>
+                    <label for="generate_qr">Get QR Code</label>
+                    <input type="checkbox" id="generate_qr" name="generate_qr">
                 </div>
                 <?php if (isset($errors["short_url"])): ?>
                     <em class="invalid"><?= $errors["short_url"] ?></em>
                 <?php endif; ?>
-                
+
                 <?php if (isset($success)): ?>
                     <em class="invalid"><?= $success ?></em>
-                    <a href="">localhost/SnipURL/<?=$short_url?></a>
+                    <a href="">localhost/SnipURL/<?= $short_url ?></a>
                 <?php endif; ?>
+
+                <?php if (isset($qrImage)): ?>
+                    <div style="margin-top: 20px;">
+                        <h3>Your QR Code</h3>
+                        <img src="data:image/png;base64,<?= $qrImage ?>" alt="QR Code">
+                    </div>
+                <?php endif; ?>
+
 
                 <button class="btn" id="form-btn">Snip your link</button>
             </form>

@@ -1,6 +1,12 @@
 <?php
 session_start();
 $mysqli = require __DIR__ . "/database.php";
+require "vendor/autoload.php";
+
+use Endroid\QrCode\QrCode;
+use Endroid\QrCode\Writer\PngWriter;
+use Endroid\QrCode\Color\Color;
+
 
 if (!isset($_SESSION["user_id"])) {
     header("Location:signup.php");
@@ -75,6 +81,23 @@ $links = $result->fetch_all(MYSQLI_ASSOC);
                             </a>
 
                             <p><?= htmlspecialchars($link['long_url']) ?></p>
+                             <?php if ((int)$link['has_qr'] === 1): ?>
+            <?php
+            $writer = new PngWriter();
+            $qrCode = new QrCode(
+                data: $link['long_url'],
+                size: 200,
+                margin: 10,
+                foregroundColor: new Color(0, 0, 0),
+                backgroundColor: new Color(255, 255, 255)
+            );
+            $result = $writer->write($qrCode);
+            $qrImage = base64_encode($result->getString());
+            ?>
+            <div style="margin-top: 10px;">
+                <img src="data:image/png;base64,<?= $qrImage ?>" alt="QR Code">
+            </div>
+        <?php endif; ?>
                         </div>
 
                         <div>
