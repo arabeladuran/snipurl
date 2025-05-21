@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 20, 2025 at 04:25 PM
+-- Generation Time: May 21, 2025 at 05:45 PM
 -- Server version: 8.0.36
 -- PHP Version: 8.2.12
 
@@ -30,8 +30,10 @@ SET time_zone = "+00:00";
 CREATE TABLE `links` (
   `id` int NOT NULL,
   `user_id` int NOT NULL,
+  `title` varchar(64) NOT NULL,
   `long_url` text NOT NULL,
   `short_url` varchar(20) NOT NULL,
+  `has_qr` tinyint(1) DEFAULT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
