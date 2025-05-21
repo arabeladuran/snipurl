@@ -56,8 +56,16 @@ $links = $result->fetch_all(MYSQLI_ASSOC);
 
                         <div>
                             <h2>Link Title</h2>
-                            <a href="">Edit</a>
-                            <a href="">Delete</a>
+
+                            <form action="edit-link.php" method="post"">
+                                <input type="hidden" name="short_url" value="" <?= htmlspecialchars($link['short_url']) ?>">
+                                <button class="btn" id="form-btn">Edit</button>
+                            </form>
+
+                            <form action="delete.php" method="post" onsubmit="return confirm('Are you sure you want to delete this link?');">
+                                <input type="hidden" name="short_url" value="<?= htmlspecialchars($link['short_url']) ?>">
+                                <button class="btn" id="form-btn">Delete</button>
+                            </form>
                         </div>
 
                         <div>
