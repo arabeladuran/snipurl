@@ -66,6 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Forgot Password</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+     <link href="styles/forgot-password.css" rel="stylesheet">
 </head>
 
 <body>
@@ -78,9 +79,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     <main>
         <div class="container">
-            <div class="card mx-auto" style="max-width: 500px;">
-                <div class="card-body">
-                    <h1> Forgot Password </h1>
+            <div class="card card-body mx-auto d-flex justify-content-between align-items-center" style="max-width: 500px;">
+                    <h1 class="card-title" > Forgot Password </h1>
 
                     <?php if (isset($email_sent)): ?>
                         <div class="alert alert-success mt-3">If we find a matching account, we'll send you an email with password recovery instructions. Didn't receive an email? Check your spam folder or try another email address.</div>
@@ -92,11 +92,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                     <form action="forgot-password.php" method="post">
                         <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" id="email" name="email" class="form-control">
+                            <input type="email" id="email" name="email" placeholder ="Enter your email" class="form-control">
                         </div>
 
-                        <button class="btn btn-primary px-5">Send</button>
+                        <div class="d-grid">
+                        <button class="btn-send" class="btn btn-primary px-5">Send</button>
                     </form>
                 </div>
             </div>
