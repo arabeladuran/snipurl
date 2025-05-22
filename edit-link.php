@@ -134,11 +134,13 @@ if ($short_url && empty($errors)) {
     <title>Edit Link</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="styles/edit-link.css" rel="stylesheet">
+    <link href="styles/nav.css" rel="stylesheet">
 </head>
 
 <body>
+    <?php include "dashboard-nav.php"?>
     <main>
-        <div class="container d-flex justify-content-center align-items-center vh-100">
+        <div class="container d-flex justify-content-center align-items-center">
             <div class="card card-body mx-auto" style="max-width: 500px;">
                     <h1 class="card-title">Edit Link</h1>
                     <?php if (!empty($errors)): ?>

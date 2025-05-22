@@ -91,15 +91,14 @@ $user = $result->fetch_assoc();
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="styles/profile.css" rel="stylesheet">
+    <link href="styles/nav.css" rel="stylesheet">
 </head>
 
 <body>
-    <nav class="container p-5" style="max-width: 1200px;">
-        <a href="dashboard.php" class="nav-logo">SHORTURL</a>
-    </nav>
+    <?php include "dashboard-nav.php"?>
 
     <main>
-        <div class="container d-flex justify-content-center align-items-center" style="max-width: 550px;">
+        <div class="container d-flex justify-content-center align-items-center mt-5" style="max-width: 550px;">
             <div class="card card-body mx-auto">
                     <h1 class="card-title">
                         Edit Profile

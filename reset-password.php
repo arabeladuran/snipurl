@@ -105,36 +105,36 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 <body>
     <!-- to be edited / removed-->
-    <div class="container" style="max-width: 1200px;">
-        <nav class="navbar p-3">
-            <a href="index.php" class="nav-logo">SHORTURL</a>
-        </nav>
-    </div>
+    <nav class="container d-flex justify-content-between align-items-center px-3 pt-4 mb-5" style="max-width: 1300px;">
+        <a href="index.php" class="nav-logo"><img src="assets/logo.png" alt="SnipURL Logo" style="height: 40px;"></a>
+    </nav>
 
     <main>
         <div class="container">
             <div class="card card-body mx-auto d-flex justify-content-between align-items-center" style="max-width: 500px;">
-                <h1 class="card-title mb-3"> Reset Password </h1>
+                <h1 class="card-title my-3"> Reset Password </h1>
 
                 <?php if (isset($errors["pw"])): ?>
-                     <div class="alert alert-danger"><?= $errors["pw"] ?></div>
+                    <div class="alert alert-danger"><?= $errors["pw"] ?></div>
                 <?php elseif (isset($errors["pw-confirm"])): ?>
-                     <div class="alert alert-danger"><?= $errors["pw-confirm"] ?></div>
+                    <div class="alert alert-danger"><?= $errors["pw-confirm"] ?></div>
                 <?php endif; ?>
                 <form action="reset-password.php" method="post">
                     <input type="hidden" name="token" value="<?= htmlspecialchars($token) ?>">
 
                     <div class="my-3">
-                        <label for="password">New Password</label>
-                        <input type="password" id="password" name="password" class="form-control mb-3" style="width:300px; border: 1px solid gray; margin-top: 10px;">
+                        <label class="form-label" for="password">New Password</label>
+                        <input type="password" id="password" name="password" class="form-control mb-3" style="width:300px; border: 1px solid gray;">
                     </div>
 
                     <div class="mb-3">
-                        <label for="confirm-password">Confirm Password</label>
-                        <input type="password" id="confirm-password" name="confirm-password" class="form-control mb-3" style="width:300px; border: 1px solid gray; margin-top: 10px;">
+                        <label for="confirm-password" class="form-label">Confirm Password</label>
+                        <input type="password" id="confirm-password" name="confirm-password" class="form-control mb-3" style="width:300px; border: 1px solid gray;">
                     </div>
 
-                    <button class="btn-send" class="btn btn-primary px-5">Change Password</button>
+                    <div class="div pt-2">
+                        <button class="btn-send">Change Password</button>
+                    </div>
                 </form>
 
             </div>

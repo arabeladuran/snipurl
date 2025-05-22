@@ -77,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             // Set a flag to allow access to welcome page
             $_SESSION["just_signed_up"] = true;
-            
+
             //redirects page when signup is successful
             header("Location: signup-success.php");
             exit;
@@ -101,61 +101,67 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 <body>
     <!-- to be edited / removed-->
-    <nav class="container d-flex justify-content-between align-items-center p-5" style="max-width: 1200px;">
-        <a href="index.php" class="nav-logo">SHORTURL</a>
+    <nav class="container d-flex justify-content-between align-items-center px-3 pt-4" style="max-width: 1300px;">
+        <a href="index.php" class="nav-logo"><img src="assets/logo.png" alt="SnipURL Logo" style="height: 40px;"></a>
     </nav>
 
     <main>
-        <div class="card border-0" style="min-height: 550px;">
-            <div class="card-body d-flex flex-column justify-content-center align-items-center">
-                <h1 class="card-title mb-3">Sign Up</h1>
-                <form action="signup.php" method="post" id="signup" class="w-100" style="max-width: 300px;" novalidate>
-                    <div class="mb-4">
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter name"
-                            value="<?= htmlspecialchars($name ?? "") ?>">
+        <div class="container mt-3 p-3">
+            <div class="card border-0" style="min-height: 550px;">
+                <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                    <h1 class="card-title mt-3 mb-4">Sign Up</h1>
+                    <form action="signup.php" method="post" id="signup" class="w-100" style="max-width: 300px;" novalidate>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="name" name="name" style="width:300px; border: 1px solid gray;"
+                                value="<?= htmlspecialchars($name ?? "") ?>">
 
-                        <?php if (isset($errors["name"])): ?>
-                            <em class="invalid"><?= $errors["name"] ?></em>
-                        <?php endif; ?>
+                            <?php if (isset($errors["name"])): ?>
+                                <em class="invalid"><?= $errors["name"] ?></em>
+                            <?php endif; ?>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" style="width:300px; border: 1px solid gray;"
+                                value="<?= htmlspecialchars($email ?? "") ?>">
+
+                            <?php if (isset($errors["email"])): ?>
+                                <em class="invalid"><?= $errors["email"] ?></em>
+                            <?php elseif (isset($errors["email-taken"])): ?>
+                                <em class="invalid"><?= $errors["email-taken"] ?></em>
+                            <?php endif; ?>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" style="width:300px; border: 1px solid gray;">
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="confirm-password" class="form-label">Confirm Password</label>
+                            <input type="password" class="form-control" id="confirm-password" name="confirm-password"  style="width:300px; border: 1px solid gray;">
+
+                            <?php if (isset($errors["pw"])): ?>
+                                <em> <span class="invalid"><?= $errors["pw"] ?></span> </em>
+                            <?php elseif (isset($errors["pw-confirm"])): ?>
+                                <em> <span class="invalid"><?= $errors["pw-confirm"] ?></span> </em>
+                            <?php endif; ?>
+                        </div>
+
+                        <div class="d-grid">
+                            <button class="btn-signup mt-3" class="btn btn-primary mb-3">Sign Up</button>
+                        </div>
+                    </form>
+
+                    <div class="d-flex justify-content-center mb-2">
+                        <p>Already have an account? <a href="login.php" style="color: #977dff">Login</a></p>
                     </div>
 
-                    <div class="mb-4">
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter email"
-                            value="<?= htmlspecialchars($email ?? "") ?>">
-
-                        <?php if (isset($errors["email"])): ?>
-                            <em class="invalid"><?= $errors["email"] ?></em>
-                        <?php elseif (isset($errors["email-taken"])): ?>
-                            <em class="invalid"><?= $errors["email-taken"] ?></em>
-                        <?php endif; ?>
-                    </div>
-
-                    <div class="mb-4">
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter password">
-                    </div>
-
-                    <div class="mb-4">
-                        <input type="password" class="form-control" id="confirm-password" name="confirm-password" placeholder="Confirm password">
-
-                        <?php if (isset($errors["pw"])): ?>
-                            <em> <span class="invalid"><?= $errors["pw"] ?></span> </em>
-                        <?php elseif (isset($errors["pw-confirm"])): ?>
-                            <em> <span class="invalid"><?= $errors["pw-confirm"] ?></span> </em>
-                        <?php endif; ?>
-                    </div>
-
-                    <div class="d-grid">
-                        <button class="btn-signup" class="btn btn-primary mb-3">Sign Up</button>
-                    </div>
-                </form>
-
-                <div class="d-flex justify-content-center mt-3">
-                    <p>Already have an account? <a href="login.php" style="color: #977dff">Login</a></p>
                 </div>
-
             </div>
         </div>
-        </div>
+
     </main>
 </body>
 

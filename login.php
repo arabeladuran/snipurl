@@ -54,23 +54,25 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 <body>
     <!-- to be edited / removed-->
-    <nav class="container d-flex justify-content-between align-items-center p-5" style="max-width: 1200px;">
-        <a href="index.php" class="nav-logo">SHORTURL</a>
+    <nav class="container d-flex justify-content-between align-items-center px-3 pt-4 mb-5" style="max-width: 1300px;">
+        <a href="index.php" class="nav-logo"><img src="assets/logo.png" alt="SnipURL Logo" style="height: 40px;"></a>
     </nav>
 
     <main>
         <div class="container mt-3 p-3" style="max-width: 500px;">
                 <div class="card border-0" style="min-height: 400px;">
                     <div class="card-body d-flex flex-column justify-content-center align-items-center">
-                        <h1 class="card-title" class="mb-4">Login</h1>
+                        <h1 class="card-title my-4" class="mb-4">Login</h1>
                         <form action="login.php" method="post" class="w-100" style="max-width: 300px;">
                                 <div class="mb-3">
-                                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email"
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="email" name="email" style="width:300px; border: 1px solid gray;"
                                     value="<?= htmlspecialchars($_POST["email"] ?? "") ?>">
                                 </div>
 
-                                <div class="mb-3">
-                                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
+                                <div class="mb-4">
+                                    <label for="password" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="password" name="password" style="width:300px; border: 1px solid gray;">
                                 </div>
 
                                 <p class="text-center"><a href="forgot-password.php" style="color: #977dff">Forgot Password?</a></p>
@@ -86,7 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                 </div>
                     </form>
 
-                    <div class="d-flex justify-content-center mt-5">
+                    <div class="d-flex justify-content-center mt-4">
                         <p> Don't have an account yet? <a href="signup.php" style="color: #977dff" >Sign up</a></p>
                     </div>
             </div>

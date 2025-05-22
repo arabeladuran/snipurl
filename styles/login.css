@@ -38,23 +38,21 @@ p{
 .form-label{
     font-family: 'Poppins';
     font-weight: 600;
-    font-size: 1.2rem;
-    padding-left: 10px;
+    font-size: 1rem;
+    margin-bottom: 2px;
 }
 
 .txt-center{   color: var(--purp2);
     margin-bottom: 10px;
     font-size: 1rem;
     text-decoration-color: var(--purp2);
- 
+
 }
 
 .form-control{
     font-family: 'Poppins';
     max-width: 300px;
     color: var(--black);
-    margin-top: 10px;
-    margin-bottom: 10px;
     border-radius: 5px;
     border: 2px solid transparent;
 }
