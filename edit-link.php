@@ -141,7 +141,6 @@ if ($short_url && empty($errors)) {
         <div class="container d-flex justify-content-center align-items-center vh-100">
             <div class="card mx-auto" style="max-width: 500px;">
                 <div class="card-body">
-
                     <h1 class="card-title">Edit Link</h1>
                     <?php if (!empty($errors)): ?>
                         <div class="form-errors">

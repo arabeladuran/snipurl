@@ -65,7 +65,7 @@ $links = $result->fetch_all(MYSQLI_ASSOC);
                     <h2>No links yet</h2>
                 <?php else: ?>
                     <?php foreach ($links as $link): ?>
-                        <div class="card mx-auto mt-3 p-3 b" style="max-width: 800px;">
+                        <div class="card card-frame mx-auto mt-3 mb-4 p-3" style="max-width: 800px;">
                             <div class="row align-items-center">
                                 <div class="col-md-3 text-center mb-3">
                                     <?php if ((int)$link['has_qr'] === 1): ?>
@@ -89,7 +89,7 @@ $links = $result->fetch_all(MYSQLI_ASSOC);
                                 <div class="col-md-6 "  id="title">
                                     <div class="row mb-2">
                                         <div class="col d-flex align-items-center gap-2">
-                                            <h2 class="card-title mb-0 me-2" style="font-weight: bold"><?= htmlspecialchars($link['title'] ?? 'Untitled') ?></h2>
+                                            <h2 class="card-title mb-0 me-2" style="font-weight: 800"><?= htmlspecialchars($link['title'] ?? 'Untitled') ?></h2>
                                         
                                             <form action="edit-link.php" method="post">
                                     <input type="hidden" name="short_url" value="<?= htmlspecialchars($link['short_url']) ?>">
@@ -109,7 +109,8 @@ $links = $result->fetch_all(MYSQLI_ASSOC);
 
                                     <div class="mb-1">
                                         <a href="<?= htmlspecialchars('http://localhost/SnipURL/' . $link['short_url']) ?>" target="_blank">
-                                            localhost/SnipURL/<?= htmlspecialchars($link['short_url']) ?>
+                                            <p class="short">
+                                            localhost/SnipURL/<?= htmlspecialchars($link['short_url']) ?> </p>
                                         </a>
                                         <div>
                                             <p><?= htmlspecialchars($link['long_url']) ?></p>

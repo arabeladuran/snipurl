@@ -7,7 +7,8 @@
     --white: #fbf6f2;
 }
 
-.container{
+.card-body{
+    padding: 50px;
     font-family: 'Poppins';
     margin-top: 30px;
 }
@@ -28,7 +29,7 @@
 }
 
 .form-control:focus-within{
-    border: 2px solid transparent; /* required to enable border-image */
+    border: 2px solid transparent; 
     border-image: linear-gradient(to right, #040948, #feb47b);
     border-image-slice: 1;
     box-shadow: 0 0px 5px #feb47b; 

@@ -1,10 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Baloo+Bhaina+2:wght@400..800&family=Noto+Serif+KR:wght@200..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Baloo+Bhaina+2:wght@400..800&family=Noto+Serif+KR:wght@200..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Bhaina+2:wght@400..800&family=Noto+Serif+KR:wght@200..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 :root {  
-    --pink: #FFD4FB;
-    --green: #C4ECB0;
-    --black: #0b1009;
-    --white: #fbf6f2;
+    --purp2: #977dff;
+    --purp: #d2ccfc;
+    --black: #1b283a;
+    --white: #f3ece0;
+    --acc: #f2e6ee;
 }
 .container{
     font-family: 'Poppins';
@@ -13,85 +15,103 @@
 
 h1{
     font-size: 4rem;
-    font-family: 'Poppins';
-    font-weight: bolder;
+    margin-right: 10px;
+    font-family: 'Nunito Sans';
+    font-weight: 900;
 }
 
-.subtxt{
+.card-frame .card-title{
+    color: var(--black);
+    font-weight: 700;
+}
+.lbl-subtxt{
+    font-size: 1.2rem;
+    padding-top: 0;
     margin-left:10px ;
+
 }
 
 .inp-search{
-    background-color: var(--white);
+    background-image: linear-gradient(45deg, var(--acc), var(--purp));
     color: var(--black);
+    font-weight: 500;
     width: 450px;
-    padding: 5px 10px;
+    padding: 10px 20px;
     border: 1px solid var(--black);
-    border-radius: 3px;
+    border-radius: 5px;
+}
+
+.inp-search:focus{
+    border: 1px solid var(--black);
+    box-shadow: 0 0px 5px var(--purp); 
 }
 
 .btn-create{
-    background-color: var(--green);
-    padding: 5px 13px;
-    color: var(--black);
+    background-color: var(--black);
+    padding: 10px 30px;
+    color: var(--white);
     font-weight: 700;
     border: none;
-    border-radius: 5px;
-      box-shadow: 0 1px 1px #3a3a3a;  
+    border-radius: 10px;
+    box-shadow: 0 1px 1px #3a3a3a;  
     text-decoration: none;
+    box-shadow: 0 1px 3px grey;
     
       transition: ease 0.2s;
 }
 
-.btn-copy{
-    background-color: lightgray;
-    border: 2px solid rgb(102, 102, 102);
-    margin-bottom: 10px;
+.card-frame{
+    border: 1px solid var(--black);
+   box-shadow: 0 0px 7px var(--purp); 
+   border-radius: 10px;
+}
+
+.short{
+    margin-top: 10px;
+    font-size: 1.2rem;
+    text-decoration: underline;
+    text-decoration-color: var(--purp2);
+    color: var(--purp2);
 }
 
 .btn-del{
     background-color: var(--black);
-    padding: 2px 10px;
-    color: var(--green);
+    padding: 5px 10px;
+    color: var(--white);
     font-weight: 600;
     border: none;
     border-radius: 5px;
-      box-shadow: 0 1px 1px #3a3a3a;  
+    box-shadow: 0 1px 3px grey;
     
-      transition: ease 0.2s;
+    transition: ease 0.2s;
 }
 
 .btn-edit{
-    background-color: var(--pink);
-    padding: 2px 10px;
+    padding: 5px 10px;
     color: var(--black);
     font-weight: 600;
     border: none;
     border-radius: 5px;
-      box-shadow: 0 1px 1px #3a3a3a;  
+    background-image: linear-gradient(45deg, var(--acc), var(--purp));
+    box-shadow: 0 1px 3px grey;
     
-      transition: ease 0.2s;
+    transition: ease 0.2s;
 }
 
 .btn-copy{
-    background-color: lightgrey;
-    padding: 2px 10px;
-    color: rgb(78, 78, 78);
-    font-weight: 500;
-    border: 3px rgb(131, 131, 131);
-    border-radius: 3px;
+    background-color: rgb(238, 238, 238);
+    padding: 5px 10px;
+    margin-bottom: 15px;
+    color: var(--black);
+    font-weight: 600;
+    border: 2px solid var(--black);
+    border-radius: 5px;
+
     
       transition: ease 0.2s;
 }
 
 
-.btn-edit:hover{
+.btn-edit:hover, .btn-create:hover, .btn-copy:hover, .btn-del:hover{
     transform: scale(1.1);
-}
-.btn-del:hover{
-    transform: scale(1.1);
-}
-
-#title{
-    font-family: 'Poppins';
 }

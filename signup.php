@@ -78,7 +78,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             //redirects page when signup is successful
             header("Location: signup-success.php");
             exit;
-            
         } catch (mysqli_sql_exception $e) {
             throw $e;
         }
@@ -93,60 +92,67 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SignUp</title>
-    <link href="styles/global.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
     <!-- to be edited / removed-->
-    <nav>
+    <nav class="container d-flex justify-content-between align-items-center p-5" style="max-width: 1200px;">
         <a href="index.php" class="nav-logo">SHORTURL</a>
     </nav>
 
     <main>
-        <div class="container" id="form-cnt">
-            <h1> Signup </h1>
+        <div class="container mt-3 p-3" style="max-width: 500px;">
+            <div class="card">
+                <div class="card-body">
+                    <h1> Signup </h1>
 
-            <form action="signup.php" method="post" id="signup" novalidate>
-                <div>
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="name"
-                        value="<?= htmlspecialchars($name ?? "") ?>">
+                    <form action="signup.php" method="post" id="signup" novalidate>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="name" name="name"
+                                value="<?= htmlspecialchars($name ?? "") ?>">
+
+                            <?php if (isset($errors["name"])): ?>
+                                <em class="invalid"><?= $errors["name"] ?></em>
+                            <?php endif; ?>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email"
+                                value="<?= htmlspecialchars($email ?? "") ?>">
+
+                            <?php if (isset($errors["email"])): ?>
+                                <em class="invalid"><?= $errors["email"] ?></em>
+                            <?php elseif (isset($errors["email-taken"])): ?>
+                                <em class="invalid"><?= $errors["email-taken"] ?></em>
+                            <?php endif; ?>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="password">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="confirm-password" class="form-label">Confirm Password</label>
+                            <input type="password" class="form-control" id="confirm-password" name="confirm-password">
+
+                            <?php if (isset($errors["pw"])): ?>
+                                <span class="invalid"><?= $errors["pw"] ?></span>
+                            <?php elseif (isset($errors["pw-confirm"])): ?>
+                                <span class="invalid"><?= $errors["pw-confirm"] ?></span>
+                            <?php endif; ?>
+                        </div>
+
+                        <button class="btn btn-primary mb-3">Sign Up</button>
+                    </form>
+
+                    <p class="px-1">Already have an account? <a href="login.php">Login</a></p>
                 </div>
-                <?php if (isset($errors["name"])): ?>
-                    <em class="invalid"><?= $errors["name"] ?></em>
-                <?php endif; ?>
-
-                <div>
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email"
-                        value="<?= htmlspecialchars($email ?? "") ?>">
-                </div>
-                <?php if (isset($errors["email"])): ?>
-                    <em class="invalid"><?= $errors["email"] ?></em>
-                <?php elseif (isset($errors["email-taken"])): ?>
-                    <em class="invalid"><?= $errors["email-taken"] ?></em>
-                <?php endif; ?>
-
-                <div>
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password">
-                </div>
-
-                <div>
-                    <label for="confirm-password">Confirm Password</label>
-                    <input type="password" id="confirm-password" name="confirm-password">
-                </div>
-                <?php if (isset($errors["pw"])): ?>
-                    <span class="invalid"><?= $errors["pw"] ?></span>
-                <?php elseif (isset($errors["pw-confirm"])): ?>
-                    <span class="invalid"><?= $errors["pw-confirm"] ?></span>
-                <?php endif; ?>
-                <button class="btn" id="form-btn">Sign Up</button>
-            </form>
-
-            <p>Already have an account? <a href="login.php">Login</a></p>
+            </div>
         </div>
-
     </main>
 </body>
 
