@@ -7,9 +7,6 @@ use Endroid\QrCode\QrCode;
 use Endroid\QrCode\Writer\PngWriter;
 use Endroid\QrCode\Color\Color;
 
-
-
-
 // prevent access to dashboard when not logged in
 if (!isset($_SESSION["user_id"])) {
     header("Location:signup.php");

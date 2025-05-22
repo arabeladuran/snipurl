@@ -51,7 +51,7 @@ $links = $result->fetch_all(MYSQLI_ASSOC);
                     <p class="lbl-subtxt">View and edit your links here</p>
                 </div>
                 <form>
-                     <div class="row mb-3">
+                    <div class="row mb-3">
                         <div class="d-flex justify-content-between align-items-center">
                             <input type="text" class="inp-search form-control w-75 me-2" placeholder="Search">
                             <a href="dashboard.php" class="btn-create" class="btn btn-primary">Create Link</a>
@@ -61,8 +61,11 @@ $links = $result->fetch_all(MYSQLI_ASSOC);
             </div>
 
             <div class="container">
+
                 <?php if (count($links) === 0): ?>
-                    <h2>No links yet</h2>
+                    <div class="card card-frame mx-auto mt-3 mb-4 p-3" style="max-width: 800px;">
+                        <h2>No links yet</h2>
+                    </div>
                 <?php else: ?>
                     <?php foreach ($links as $link): ?>
                         <div class="card card-frame mx-auto mt-3 mb-4 p-3" style="max-width: 800px;">
@@ -86,13 +89,13 @@ $links = $result->fetch_all(MYSQLI_ASSOC);
                                     <?php endif; ?>
                                 </div>
 
-                                <div class="col-md-6 "  id="title">
+                                <div class="col-md-6 " id="title">
                                     <div class="row mb-2">
                                         <div class="col d-flex align-items-center gap-2">
                                             <h2 class="card-title mb-0 me-2" style="font-weight: 800"><?= htmlspecialchars($link['title'] ?? 'Untitled') ?></h2>
-                                        
+
                                             <form action="edit-link.php" method="post">
-                                    <input type="hidden" name="short_url" value="<?= htmlspecialchars($link['short_url']) ?>">
+                                                <input type="hidden" name="short_url" value="<?= htmlspecialchars($link['short_url']) ?>">
 
                                                 <button class="btn-edit" class="btn btn-sm btn-primary" id="form-btn">Edit</button>
 
@@ -110,7 +113,7 @@ $links = $result->fetch_all(MYSQLI_ASSOC);
                                     <div class="mb-1">
                                         <a href="<?= htmlspecialchars('http://localhost/SnipURL/' . $link['short_url']) ?>" target="_blank">
                                             <p class="short">
-                                            localhost/SnipURL/<?= htmlspecialchars($link['short_url']) ?> </p>
+                                                localhost/SnipURL/<?= htmlspecialchars($link['short_url']) ?> </p>
                                         </a>
                                         <div>
                                             <p><?= htmlspecialchars($link['long_url']) ?></p>
@@ -119,7 +122,7 @@ $links = $result->fetch_all(MYSQLI_ASSOC);
                                 </div>
 
                                 <div class="col-md-3 d-flex flex-column justify-content-between align-items-end text-end">
-                                    <button class="btn-copy" class="btn btn-outline-secondary btn-sm mb-2" >Copy</button>
+                                    <button class="btn-copy" class="btn btn-outline-secondary btn-sm mb-2">Copy</button>
                                     <p class="text-muted mb-0" style="font-size: 0.85rem;">Created on <?= htmlspecialchars($link['created_at']) ?></p>
                                 </div>
                             </div>
@@ -131,4 +134,5 @@ $links = $result->fetch_all(MYSQLI_ASSOC);
         </div>
     </main>
 </body>
+
 </html>

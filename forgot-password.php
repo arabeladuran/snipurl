@@ -4,6 +4,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if (empty($email)) {
         $invalid_email = true;
+    } else {
+        $invalid_email = false;
     }
 
     if (!$invalid_email) {
@@ -92,7 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                     <form action="forgot-password.php" method="post">
                         <div class="mb-3">
-                            <input type="email" id="email" name="email" placeholder ="Enter your email" class="form-control">
+                            <input type="email" id="email" name="email" placeholder ="Enter your email" class="form-control mb-3" style="width:300px;">
                         </div>
 
                         <div class="d-grid">

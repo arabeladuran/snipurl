@@ -1,6 +1,6 @@
 <?php
 // form checking
-$token = $_GET["token"] ?? null;
+$token = $_POST["token"] ?? $_GET["token"] ?? null;
 
 if (!$token) {
     die("Invalid or missing token.");
@@ -82,7 +82,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         $mail->send();
 
-        header("refresh:3;url=login.php"); // Redirects after 3 seconds
+        session_start();
+        $_SESSION["just_reset"] = true;
+
+        header("Location: reset-success.php"); // Redirects after 3 seconds
         exit;
     }
 }
@@ -95,41 +98,46 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="styles/global.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles/forgot-password.css" rel="stylesheet">
 
 </head>
 
 <body>
     <!-- to be edited / removed-->
-    <nav>
-        <a href="index.php" class="nav-logo">SHORTURL</a>
-    </nav>
+    <div class="container" style="max-width: 1200px;">
+        <nav class="navbar p-3">
+            <a href="index.php" class="nav-logo">SHORTURL</a>
+        </nav>
+    </div>
 
     <main>
-        <div class="container" id="form-cnt">
-            <h1> Reset Password </h1>
-
-            <form action="" method="post">
-                <input type="hidden" name="token" value="<?= htmlspecialchars($token) ?>">
-
-                <div>
-                    <label for="password">New Password</label>
-                    <input type="password" id="password" name="password">
-                </div>
-
-                <div>
-                    <label for="confirm-password">Confirm Password</label>
-                    <input type="password" id="confirm-password" name="confirm-password">
-                </div>
+        <div class="container">
+            <div class="card card-body mx-auto d-flex justify-content-between align-items-center" style="max-width: 500px;">
+                <h1 class="card-title mb-3"> Reset Password </h1>
 
                 <?php if (isset($errors["pw"])): ?>
-                    <span class="invalid"><?= $errors["pw"] ?></span>
+                     <div class="alert alert-danger"><?= $errors["pw"] ?></div>
                 <?php elseif (isset($errors["pw-confirm"])): ?>
-                    <span class="invalid"><?= $errors["pw-confirm"] ?></span>
+                     <div class="alert alert-danger"><?= $errors["pw-confirm"] ?></div>
                 <?php endif; ?>
+                <form action="reset-password.php" method="post">
+                    <input type="hidden" name="token" value="<?= htmlspecialchars($token) ?>">
 
-                <button class="btn" id="form-btn">Change Password</button>
-            </form>
+                    <div class="my-3">
+                        <label for="password">New Password</label>
+                        <input type="password" id="password" name="password" class="form-control mb-3" style="width:300px; border: 1px solid gray; margin-top: 10px;">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="confirm-password">Confirm Password</label>
+                        <input type="password" id="confirm-password" name="confirm-password" class="form-control mb-3" style="width:300px; border: 1px solid gray; margin-top: 10px;">
+                    </div>
+
+                    <button class="btn-send" class="btn btn-primary px-5">Change Password</button>
+                </form>
+
+            </div>
 
         </div>
 
