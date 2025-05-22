@@ -16,13 +16,13 @@
 .btn {
 
   display: flex;       
-  align-items: center;       /* vertically center text */
-  justify-content: center;   /* horizontally center text */
-  margin: 45px auto 25px;   
-  padding: 0px 40px;
+  align-items: center;     
+  justify-content: center;   
+  margin: 45px auto 2px;   
+  padding: 7px 30px;
 
   font-size: 1.5rem;
-  font-family: "Baloo Bhaina 2";
+  font-family: "Poppins";
   font-weight: bold;
   line-height: normal;   
   color: white;
@@ -45,8 +45,8 @@ input {
   padding-left: 20px;
   padding-right: 20px;
   margin-bottom: 20px;
-  font-size: 1.2rem;
-  font-family: "Baloo Bhaina 2";
+  font-size: 1rem;
+  font-family: "Poppins";
   font-weight: 500;
   line-height: normal;   
   color: var(--button-color);

@@ -4,41 +4,38 @@
     justify-content: center;
     align-items: center;     
     background: white;
-    margin: auto;
-    padding: 50px;
+    margin-top: 50px;
+    padding: 30px;
     border-radius: 15px;
     box-shadow: 0 0px 3px rgba(0, 0, 0, 0.25);
-    max-width: 800px;
+    max-width: 500px;
     width: 100%;
-    max-height: 10px;
-    height: 800px;
-
+    height: auto;
 }
 
-.db-txt{
-    font-size: 1.2rem;
-    color: var(--button-color);
-}
 
 .db-def-url{
     display: flex;
+    align-items: center;
+    vertical-align: middle;
 }
 
 #short-url{
     margin-left: 20px;
 }
 
+
 #long-url, #title{
-    width: 350px;
-    padding: 2px 120px;
+    width: 420px;
+    padding: 5px 160px;
     padding-left: 20px;
     padding-right: 20px;
-    margin-bottom: 20px;
-    font-size: 1.2rem;
-    font-family: "Baloo Bhaina 2";
-    font-weight: 500;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    font-family: "Poppins";
+    font-weight: 300;
     line-height: normal;   
-    color: var(--button-color);
+    color: lightgray;
 
     border: 2px solid rgb(216, 216, 216);
     border-radius: 5px;
@@ -51,13 +48,13 @@
 
 #default-url, #short-url{
     width: 200px;
-    padding: 2px 50px;
+    padding: 5px 50px;
     padding-left: 20px;
     padding-right: 20px;
-    margin-bottom: 20px;
-    font-size: 1.2rem;
-    font-family: "Baloo Bhaina 2";
-    font-weight: 500;
+    margin-bottom: 30px;
+    font-size: 1rem;
+    font-family: "Poppins";
+    font-weight: 300;
     line-height: normal;   
     color: var(--button-color);
 
@@ -68,4 +65,16 @@
     outline: none;
 
     transition: border-color 0.3s
+}
+
+.invalid{
+    font-size: 1.2rem;
+    font-family: "Baloo Bhaina 2";
+    font-weight: 300;
+    margin-top: 20px;
+    color: rgb(180, 29, 29);
+}
+
+#form-btn{
+    margin-top: 10px;
 }

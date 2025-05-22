@@ -132,44 +132,63 @@ if ($short_url && empty($errors)) {
 <head>
     <meta charset="UTF-8">
     <title>Edit Link</title>
-    <link rel="stylesheet" href="styles/global.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles/edit-link.css" rel="stylesheet">
 </head>
 
 <body>
-    <?php include "dashboard-nav.php"; ?>
     <main>
-        <div class="container">
-            <h1>Edit Link</h1>
+        <div class="container d-flex justify-content-center align-items-center vh-100">
+            <div class="card mx-auto" style="max-width: 500px;">
+                <div class="card-body">
 
-            <?php if (!empty($errors)): ?>
-                <div class="form-errors">
-                    <ul>
-                        <?php foreach ($errors as $error): ?>
-                            <li style="color: red;"><?= htmlspecialchars($error) ?></li>
-                        <?php endforeach; ?>
-                    </ul>
+                    <h1 class="card-title">Edit Link</h1>
+                    <?php if (!empty($errors)): ?>
+                        <div class="form-errors">
+                            <ul>
+                                <?php foreach ($errors as $error): ?>
+                                    <li style="color: red;"><?= htmlspecialchars($error) ?></li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                    <?php endif; ?>
+                    <form method="POST">
+                        <input type="hidden" name="short_url" value="<?= htmlspecialchars($_POST['short_url'] ?? $link['short_url'] ?? '') ?>">
+                        <input type="hidden" name="action" value="save">
+
+                        <div class="mb-3">
+                            <label class="form-label">Title</label>
+                            <input type="text" name="title" class="form-control" value="<?= htmlspecialchars($_POST['title'] ?? $link['title'] ?? '') ?>">
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label class="form-label">Destination URL</label>
+                            <input type="text" name="long_url" class="form-control" value="<?= htmlspecialchars($_POST['long_url'] ?? $link['long_url'] ?? '') ?>">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Custom Short URL</label>
+                            <div class="row">
+                                <div class="col-auto">
+                                    <input type="text" class="form-control" value="www.snip-url.com" readonly>
+                                </div>
+                                <div class="col">
+
+                                    <input type="text" name="new_short_url" class="form-control" value="<?= htmlspecialchars($_POST['new_short_url'] ?? $link['short_url'] ?? '') ?>">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center justify-content-between">              
+                            <button class="btn-cancel" class="btn btn-secondary" type="button" onclick="window.location.href='links.php'">Cancel</button>
+                            <button class="btn-save" class="btn btn-primary" type="submit">Save Changes</button>
+                        </div>
+                    </form>
                 </div>
-            <?php endif; ?>
-            <form method="POST">
-                <input type="hidden" name="short_url" value="<?= htmlspecialchars($_POST['short_url'] ?? $link['short_url'] ?? '') ?>">
-                <input type="hidden" name="action" value="save">
+            </div>
 
-                <label>Title</label>
-                <input type="text" name="title" value="<?= htmlspecialchars($_POST['title'] ?? $link['title'] ?? '') ?>">
 
-                <label>Destination URL</label>
-                <input type="text" name="long_url" value="<?= htmlspecialchars($_POST['long_url'] ?? $link['long_url'] ?? '') ?>">
-
-                <label>Custom Short URL</label>
-                <div id="double-input">
-                    <input type="text" value="www.snip-url.com" readonly>
-                    <p>/</p>
-                    <input type="text" name="new_short_url" value="<?= htmlspecialchars($_POST['new_short_url'] ?? $link['short_url'] ?? '') ?>">
-                </div>
-
-                <button class="btn" type="button" onclick="window.location.href='links.php'">Cancel</button>
-                <button class="btn" type="submit">Save Changes</button>
-            </form>
 
 
         </div>

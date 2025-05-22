@@ -1,0 +1,30 @@
+nav {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    vertical-align: bottom;
+    padding: 1rem;
+}
+
+.nav-logo {
+    font-size: 1.8rem;
+    font-weight: 900;
+}
+nav a {
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+    font-weight: 800;
+    font-size: 1.5rem;
+}
+
+.nav-btn {
+    display: flex;
+    align-items: center;
+}

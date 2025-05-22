@@ -34,82 +34,100 @@ $links = $result->fetch_all(MYSQLI_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Link History</title>
-    <link rel="stylesheet" href="styles/global.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles/links.css" rel="stylesheet">
 </head>
 
 <body>
-    <nav>
-
-    </nav>
+    <?php include "dashboard-nav.php" ?>
 
     <main>
         <div class="container">
-            <div>
-                <h1>Your links</h1>
-                <p>View and edit your links here</p>
+            <div class="card mx-auto p-3 border-0" style="max-width: 800px;">
+                <div class="row">
+                    <h1>Your links</h1>
+                </div>
+                <div class="row">
+                    <p class="lbl-subtxt">View and edit your links here</p>
+                </div>
                 <form>
-                    <input type="text" placeholder="Search">
-                    <button class="btn" id="form-btn">SORT</button>
+                     <div class="row mb-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <input type="text" class="inp-search form-control w-75 me-2" placeholder="Search">
+                            <a href="dashboard.php" class="btn-create" class="btn btn-primary">Create Link</a>
+                        </div>
+                    </div>
                 </form>
-                <a href="dashboard.php">Create Link</a>
             </div>
 
-            <div class="link-list">
+            <div class="container">
                 <?php if (count($links) === 0): ?>
                     <h2>No links yet</h2>
                 <?php else: ?>
                     <?php foreach ($links as $link): ?>
+                        <div class="card mx-auto mt-3 p-3 b" style="max-width: 800px;">
+                            <div class="row align-items-center">
+                                <div class="col-md-3 text-center mb-3">
+                                    <?php if ((int)$link['has_qr'] === 1): ?>
+                                        <?php
+                                        $writer = new PngWriter();
+                                        $qrCode = new QrCode(
+                                            data: $link['long_url'],
+                                            size: 150,
+                                            margin: 10,
+                                            foregroundColor: new Color(0, 0, 0),
+                                            backgroundColor: new Color(255, 255, 255)
+                                        );
+                                        $result = $writer->write($qrCode);
+                                        $qrImage = base64_encode($result->getString());
+                                        ?>
+                                        <img src="data:image/png;base64,<?= $qrImage ?>" alt="QR Code">
 
-                        <div>
-                            <h2><?= htmlspecialchars($link['title'] ?? 'Untitled') ?></h2>
+                                    <?php endif; ?>
+                                </div>
+
+                                <div class="col-md-6 "  id="title">
+                                    <div class="row mb-2">
+                                        <div class="col d-flex align-items-center gap-2">
+                                            <h2 class="card-title mb-0 me-2" style="font-weight: bold"><?= htmlspecialchars($link['title'] ?? 'Untitled') ?></h2>
+                                        
+                                            <form action="edit-link.php" method="post">
+                                    <input type="hidden" name="short_url" value="<?= htmlspecialchars($link['short_url']) ?>">
+
+                                                <button class="btn-edit" class="btn btn-sm btn-primary" id="form-btn">Edit</button>
 
 
-                            <form action="edit-link.php" method="post"">
-                                <input type="hidden" name="short_url" value="<?= htmlspecialchars($link['short_url']) ?>">
-                                <button class="btn" id="form-btn">Edit</button>
-                            </form>
+                                            </form>
+                                            <form action="delete.php" method="post" onsubmit="return confirm('Are you sure you want to delete this link?');">
+                                                <input type="hidden" name="short_url" value="<?= htmlspecialchars($link['short_url']) ?>">
 
-                            <form action="delete.php" method="post" onsubmit="return confirm('Are you sure you want to delete this link?');">
-                                <input type="hidden" name="short_url" value="<?= htmlspecialchars($link['short_url']) ?>">
-                                <button class="btn" id="form-btn">Delete</button>
-                            </form>
+                                                <button class="btn-del" class="btn btn-sm btn-danger">Delete</button>
+
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-1">
+                                        <a href="<?= htmlspecialchars('http://localhost/SnipURL/' . $link['short_url']) ?>" target="_blank">
+                                            localhost/SnipURL/<?= htmlspecialchars($link['short_url']) ?>
+                                        </a>
+                                        <div>
+                                            <p><?= htmlspecialchars($link['long_url']) ?></p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3 d-flex flex-column justify-content-between align-items-end text-end">
+                                    <button class="btn-copy" class="btn btn-outline-secondary btn-sm mb-2" >Copy</button>
+                                    <p class="text-muted mb-0" style="font-size: 0.85rem;">Created on <?= htmlspecialchars($link['created_at']) ?></p>
+                                </div>
+                            </div>
                         </div>
 
-                        <div>
-                            <a href="<?= htmlspecialchars('http://localhost/SnipURL/' . $link['short_url']) ?>" target="_blank">
-                                localhost/SnipURL/<?= htmlspecialchars($link['short_url']) ?>
-                            </a>
-
-                            <p><?= htmlspecialchars($link['long_url']) ?></p>
-                             <?php if ((int)$link['has_qr'] === 1): ?>
-            <?php
-            $writer = new PngWriter();
-            $qrCode = new QrCode(
-                data: $link['long_url'],
-                size: 200,
-                margin: 10,
-                foregroundColor: new Color(0, 0, 0),
-                backgroundColor: new Color(255, 255, 255)
-            );
-            $result = $writer->write($qrCode);
-            $qrImage = base64_encode($result->getString());
-            ?>
-            <div style="margin-top: 10px;">
-                <img src="data:image/png;base64,<?= $qrImage ?>" alt="QR Code">
-            </div>
-        <?php endif; ?>
-                        </div>
-
-                        <div>
-                            <button class="btn">Copy</button>
-                            <p>Created on <?= htmlspecialchars($link['created_at']) ?></p>
-                        </div>
                     <?php endforeach; ?>
                 <?php endif; ?>
-
             </div>
         </div>
     </main>
 </body>
-
 </html>

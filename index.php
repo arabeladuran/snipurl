@@ -27,6 +27,7 @@ if (isset($_SESSION["user_id"])) {
     <nav>
         <a href="index.php" class="nav-logo">SHORTURL</a>
 
+
         <div class="nav-btn">
             <?php
             if (isset($user)): ?>

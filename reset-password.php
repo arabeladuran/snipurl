@@ -62,9 +62,28 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $stmt->bind_param("ss", $password_hash, $user["id"]);
         $stmt->execute();
 
-        echo ("Password has been changed. Redirecting to Login...");
+        // Send confirmation email
+        $mail = require __DIR__ . "/mailer.php";
 
-        // send another email stating that the password has been changed.
+        $mail->setFrom("noreply@gmail.com", "SnipURL");
+        $mail->addAddress($user["email"]); // assuming you selected the full user row
+        $mail->Subject = "Your Password Was Changed";
+        $mail->isHTML(true);
+
+        $mail->Body = <<<HTML
+        <h2>Password Changed Successfully</h2>
+        <p>Hello,</p>
+        <p>This is a confirmation that your password has been changed successfully.</p>
+        <p>If you did not perform this action, please contact our support team immediately.</p>
+        <p>Thanks,<br>The SnipURL Team</p>
+    HTML;
+
+        $mail->AltBody = "Hello,\n\nYour password has been successfully changed.\n\nIf you did not perform this, please contact support.\n\nThanks,\nThe SnipURL Team";
+
+        $mail->send();
+
+        header("refresh:3;url=login.php"); // Redirects after 3 seconds
+        exit;
     }
 }
 ?>
@@ -77,23 +96,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="styles/global.css">
+
 </head>
 
 <body>
     <!-- to be edited / removed-->
     <nav>
         <a href="index.php" class="nav-logo">SHORTURL</a>
-
-        <ul class="nav-links">
-            <li class="link"><a href="">Features</a></li>
-            <li class="link"><a href="">About</a></li>
-        </ul>
-
-        <div class="nav-btn">
-            <!-- If user is not logged in, redirect to sign up page -->
-            <a href="login.php" class="btn" id="login-btn">Log in</a>
-            <a href="signup.php" class="btn" id="signup-btn">Start for Free</a>
-        </div>
     </nav>
 
     <main>

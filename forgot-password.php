@@ -22,22 +22,27 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $stmt->execute();
 
+    $email_sent = true;
     if ($mysqli->affected_rows) {
         $mail = require __DIR__ . "/mailer.php";
 
         $mail->setFrom("noreply@gmail.com");
         $mail->addAddress($email);
         $mail->Subject = "Password Reset";
-        $mail->Body = <<<END
 
-        Click <a href="http://localhost/SnipURL/reset-password.php?token=$token">here</a> to reset your password.
-        
-        END;
+        $mail->Body = <<<HTML
+        <h2>Password Reset Request</h2>
+        <p>Hello,</p>
+        <p>You requested a password reset. Click the button below to reset it:</p>
+        <p>
+            <a href="http://localhost/SnipURL/reset-password.php?token=$token" style="display:inline-block;padding:10px 20px;background-color:#4CAF50;color:#fff;text-decoration:none;border-radius:5px;">Reset Password</a>
+        </p>
+        <p>If you did not request this, please ignore this email.</p>
+        <p>Thanks,<br>The SnipURL Team</p>
+    HTML;
 
         try {
             $mail->send();
-            $email_sent = true;
-            
         } catch (Exception $e) {
             echo "Message could not be sent. Mailer error: {$mail->ErrorInfo}";
         }
@@ -61,16 +66,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <!-- to be edited / removed-->
     <nav>
         <a href="index.php" class="nav-logo">SHORTURL</a>
-
-        <ul class="nav-links">
-            <li class="link"><a href="">Features</a></li>
-            <li class="link"><a href="">About</a></li>
-        </ul>
-
-        <div class="nav-btn">
-            <a href="login.php" class="btn" id="login-btn">Log in</a>
-            <a href="signup.php" class="btn" id="signup-btn">Start for Free</a>
-        </div>
     </nav>
 
     <main>
@@ -86,9 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <button class="btn" id="form-btn">Send</button>
 
                 <?php if (isset($email_sent)): ?>
-                    <em class="invalid">Email has been sent.</em>
-                <?php elseif (isset($invalid_email)): ?>
-                    <em class="invalid">Account does not exist.</em>
+                    <span class="invalid">If we find a matching account, we'll send you an email with password recovery instructions. Didn't receive an email? Check your spam folder or try another email address.</span>
                 <?php endif; ?>
             </form>
         </div>

@@ -77,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $short_url = trim($_POST["short-url"]);
     $title = trim($_POST["title"]);
     $user_id = $_SESSION["user_id"];
-    $has_qr = isset($_POST["generate_qr"]) ? 1 : 0;
+    $has_qr = 1;
 
     $errors = [];
 
@@ -150,60 +150,51 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </head>
 
 <body>
+
+<?php include "dashboard-nav.php" ?>
     <main>
         <div>
-            <h1>Home</h1>
+            <div id=" Snip your Links in a Snap. </h1>
             <form method="post">
-                <!-- Link to shorten -->
-                <h2>Quick Create</h2>
-
                 <div class ="db-container">
-                        <div class="container">
-                            <p> <label class="db-txt" for="long-url">Enter long URL</label> </p>
+                        <div>
+                            <p> <label class="db-txt" for="long-url" >Enter long URL</label> </p>
                             <input type="text" id="long-url" name="long-url" placeholder="e.g. https://example.com/longlink"
                             value="<?= htmlspecialchars($_POST["long_url"] ?? "") ?>">
                         </div>
-
-                        <?php if (isset($errors["long_url"])): ?>
-                            <em class="invalid"><?= $errors["long_url"] ?></em>
-                        <?php endif; ?>
-
                         <div>
                             <p> <label class="db-txt" for="title">Title (Optional)</label> </p>
                             <input type="text" id="title" name="title"
                             value="<?= htmlspecialchars($_POST["title"] ?? "") ?>">
                         </div>
-                        
                         <div>
                             <p> <label for="short-url">Custom URL</label> </p>
                             <div class="db-def-url">
-                                <input type="text" id="default-url" value="www.snip-url.com" readonly>
-                                <span> / </span>
+                                <input type="text" id="default-url" value="www.snip-url.com/" readonly>
                                 <input type="text" id="short-url" name="short-url"
                                 value="<?= htmlspecialchars($_POST["short_url"] ?? "") ?>">
                             </div>
                         </div>
-                     <div>
-                    <label for="generate_qr">Get QR Code</label>
-                    <input type="checkbox" id="generate_qr" name="generate_qr">
-                </div>
 
-                <?php if (isset($errors["short_url"])): ?>
-                    <em class="invalid"><?= $errors["short_url"] ?></em>
-                <?php endif; ?>
+                        <?php if (isset($errors["short_url"])): ?>
+                            <em class="invalid"><?= $errors["short_url"] ?></em>
+                        <?php endif; ?>
 
-                <?php if (isset($success)): ?>
-                    <em class="invalid"><?= $success ?></em>
-                    <a href="">localhost/SnipURL/<?= $short_url ?></a>
-                <?php endif; ?>
+                        <?php if (isset($success)): ?>
+                            <em class="invalid"><?= $success ?></em>
+                            <a href="">localhost/SnipURL/<?= $short_url ?></a>
+                        <?php endif; ?>
 
-                <?php if (isset($qrImage)): ?>
-                    <div style="margin-top: 20px;">
-                        <h3>Your QR Code</h3>
-                        <img src="data:image/png;base64,<?= $qrImage ?>" alt="QR Code">
-                    </div>
-                <?php endif; ?>
+                        <?php if (isset($qrImage)): ?>
+                            <div style="margin-top: 20px;">
+                                <h3>Your QR Code</h3>
+                                <img src="data:image/png;base64,<?= $qrImage ?>" alt="QR Code">
+                            </div>
 
+                        <?php endif; ?>
+                             <?php if (isset($errors["long_url"])): ?>
+                            <em class="invalid"><?= $errors["long_url"] ?></em>
+                        <?php endif; ?>
                     <button class="btn" id="form-btn">Snip your link</button>
                 </div>
             </form>
