@@ -9,14 +9,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // ff code validates the inputs
 
     if (empty($name)) {
-        $errors["name"] = "This field is required";
+        $errors["name"] = "* This field is required";
     }
 
     // validates email address
     if (empty($email)) {
-        $errors["email"] = "This field is required";
+        $errors["email"] = "* This field is required";
     } elseif (! filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors["email"] = "Please enter a valid email address";
+        $errors["email"] = "* Please enter a valid email address";
     }
 
     // validates password, at least 8 characters wt one letter / number
@@ -25,12 +25,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         or !preg_match("/[a-z]/i", $password)
         or ! preg_match("/[0-9]/", $password)
     ) {
-        $errors["pw"] = "Password must be at least 8 characters and contain a letter and a number";
+        $errors["pw"] = "* Password must be at least 8 characters and contain a letter and a number";
     }
 
     // validates password confimation
     if ($password !== $_POST["confirm-password"]) {
-        $errors["pw-confirm"] = "Password does not match";
+        $errors["pw-confirm"] = "* Password does not match";
     }
 
     // check if valid email is already taken
@@ -93,6 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SignUp</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles/signup.css" rel="stylesheet">
 </head>
 
 <body>
@@ -102,15 +103,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     </nav>
 
     <main>
-        <div class="container mt-3 p-3" style="max-width: 500px;">
-            <div class="card">
-                <div class="card-body">
-                    <h1> Signup </h1>
-
-                    <form action="signup.php" method="post" id="signup" novalidate>
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="name" name="name"
+        <<div class="card border-0" style="min-height: 550px;">
+                <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                    <h1 class="card-title mb-3">Sign Up</h1>
+                     <form action="signup.php" method="post" id="signup" class="w-100" style="max-width: 300px;" novalidate>
+                        <div class="mb-4">
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter name"
                                 value="<?= htmlspecialchars($name ?? "") ?>">
 
                             <?php if (isset($errors["name"])): ?>
@@ -118,9 +116,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             <?php endif; ?>
                         </div>
 
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email"
+                        <div class="mb-4">
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email"
                                 value="<?= htmlspecialchars($email ?? "") ?>">
 
                             <?php if (isset($errors["email"])): ?>
@@ -130,26 +127,29 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             <?php endif; ?>
                         </div>
 
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" name="password">
+                        <div class="mb-4">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter password"> 
                         </div>
 
-                        <div class="mb-3">
-                            <label for="confirm-password" class="form-label">Confirm Password</label>
-                            <input type="password" class="form-control" id="confirm-password" name="confirm-password">
+                        <div class="mb-4">
+                            <input type="password" class="form-control" id="confirm-password" name="confirm-password" placeholder="Confirm password">
 
                             <?php if (isset($errors["pw"])): ?>
-                                <span class="invalid"><?= $errors["pw"] ?></span>
+                               <em> <span  class="invalid"><?= $errors["pw"] ?></span> </em>
                             <?php elseif (isset($errors["pw-confirm"])): ?>
-                                <span class="invalid"><?= $errors["pw-confirm"] ?></span>
+                                <em> <span class="invalid"><?= $errors["pw-confirm"] ?></span>  </em> 
                             <?php endif; ?>
                         </div>
 
-                        <button class="btn btn-primary mb-3">Sign Up</button>
+                        <div class="d-grid">
+                        <button class="btn-signup" class="btn btn-primary mb-3">Sign Up</button>
+                            </div>
                     </form>
 
-                    <p class="px-1">Already have an account? <a href="login.php">Login</a></p>
+                    <div class="d-flex justify-content-center mt-3">
+                        <p>Already have an account? <a href="login.php" style="color: #977dff">Login</a></p>
+                    </div>
+
                 </div>
             </div>
         </div>
