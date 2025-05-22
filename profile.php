@@ -90,6 +90,7 @@ $user = $result->fetch_assoc();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles/profile.css" rel="stylesheet">
 </head>
 
 <body>
@@ -98,9 +99,8 @@ $user = $result->fetch_assoc();
     </nav>
 
     <main>
-        <div class="container" style="max-width: 600px;">
-            <div class="card mx-auto">
-                <div class="card-body">
+        <div class="container d-flex justify-content-center align-items-center" style="max-width: 550px;">
+            <div class="card card-body mx-auto">
                     <h1 class="card-title">
                         Edit Profile
                     </h1>
@@ -110,7 +110,7 @@ $user = $result->fetch_assoc();
                     <?php endif; ?>
 
                     <form action="profile.php" method="post">
-                        <div class="mb-3">
+                        <div class="mb-2">
                             <label for="name" class="form-label">Name</label>
                             <input type="text" name="name" id="name" class="form-control"
                                 value="<?= htmlspecialchars($_POST["name"] ?? $user['name']) ?>">
@@ -120,7 +120,7 @@ $user = $result->fetch_assoc();
                             <?php endif; ?>
                         </div>
 
-                        <div class="mb-3">
+                        <div class="mb-2">
                             <label for="email" class="form-label">Email</label>
                             <input type="email" name="email" id="email" class="form-control"
                                 value="<?= htmlspecialchars($_POST["email"] ?? $user['email']) ?>">

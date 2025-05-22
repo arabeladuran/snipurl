@@ -139,8 +139,7 @@ if ($short_url && empty($errors)) {
 <body>
     <main>
         <div class="container d-flex justify-content-center align-items-center vh-100">
-            <div class="card mx-auto" style="max-width: 500px;">
-                <div class="card-body">
+            <div class="card card-body mx-auto" style="max-width: 500px;">
                     <h1 class="card-title">Edit Link</h1>
                     <?php if (!empty($errors)): ?>
                         <div class="form-errors">
@@ -170,7 +169,7 @@ if ($short_url && empty($errors)) {
                             <label class="form-label">Custom Short URL</label>
                             <div class="row">
                                 <div class="col-auto">
-                                    <input type="text" class="form-control" value="www.snip-url.com" readonly>
+                                    <input type="text" class="form-control" id="inp-def" value="www.snip-url.com" readonly>
                                 </div>
                                 <div class="col">
 
