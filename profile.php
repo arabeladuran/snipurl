@@ -94,7 +94,7 @@ $user = $result->fetch_assoc();
 </head>
 
 <body>
-    <nav class="container d-flex justify-content-between align-items-center p-5" style="max-width: 1200px;">
+    <nav class="container p-5" style="max-width: 1200px;">
         <a href="dashboard.php" class="nav-logo">SHORTURL</a>
     </nav>
 
@@ -132,14 +132,15 @@ $user = $result->fetch_assoc();
                             <?php endif; ?>
                         </div>
 
-                        <h4 class="my-3">Change Password</h4>
+                        <h5 class="my-3">Change Password</h5>
                         <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" name="password" id="password" class="form-control">
+                            <input type="password" name="password" id="password" class="form-control" placeholder="Old password">
                         </div>
                         <div class="mb-3">
-                            <label for="confirm-password" class="form-label">Confirm Password</label>
-                            <input type="password" name="confirm-password" id="confirmpassword" class="form-control">
+                            <input type="password" name="password" id="password" class="form-control" placeholder="New password">
+                        </div>
+                        <div class="mb-3">
+                            <input type="password" name="confirm-password" id="confirmpassword" class="form-control" placeholder="Confirm password">
 
                             <?php if (isset($errors["pw"])): ?>
                                 <em class="text-danger"><?= $errors["pw"] ?></em>
@@ -148,8 +149,10 @@ $user = $result->fetch_assoc();
                             <?php endif; ?>
                         </div>
 
-
-                        <button class="btn btn-primary my-3">Save Changes</button>
+                             <div class="d-flex align-items-center justify-content-between ">              
+                            <button class="btn-cancel" class="btn btn-secondary" type="button" onclick="history.back()">Back</button>
+                            <button class="btn-save" class="btn btn-primary" type="submit">Save Changes</button>
+                        </div>
                     </form>
                 </div>
             </div>
