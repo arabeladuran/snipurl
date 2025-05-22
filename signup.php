@@ -75,6 +75,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             $_SESSION["user_id"] = $mysqli->insert_id; // retrieves the most recent inserted id
 
+            // Set a flag to allow access to welcome page
+            $_SESSION["just_signed_up"] = true;
+            
             //redirects page when signup is successful
             header("Location: signup-success.php");
             exit;
@@ -103,55 +106,55 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     </nav>
 
     <main>
-        <<div class="card border-0" style="min-height: 550px;">
-                <div class="card-body d-flex flex-column justify-content-center align-items-center">
-                    <h1 class="card-title mb-3">Sign Up</h1>
-                     <form action="signup.php" method="post" id="signup" class="w-100" style="max-width: 300px;" novalidate>
-                        <div class="mb-4">
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter name"
-                                value="<?= htmlspecialchars($name ?? "") ?>">
+        <div class="card border-0" style="min-height: 550px;">
+            <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                <h1 class="card-title mb-3">Sign Up</h1>
+                <form action="signup.php" method="post" id="signup" class="w-100" style="max-width: 300px;" novalidate>
+                    <div class="mb-4">
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter name"
+                            value="<?= htmlspecialchars($name ?? "") ?>">
 
-                            <?php if (isset($errors["name"])): ?>
-                                <em class="invalid"><?= $errors["name"] ?></em>
-                            <?php endif; ?>
-                        </div>
-
-                        <div class="mb-4">
-                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email"
-                                value="<?= htmlspecialchars($email ?? "") ?>">
-
-                            <?php if (isset($errors["email"])): ?>
-                                <em class="invalid"><?= $errors["email"] ?></em>
-                            <?php elseif (isset($errors["email-taken"])): ?>
-                                <em class="invalid"><?= $errors["email-taken"] ?></em>
-                            <?php endif; ?>
-                        </div>
-
-                        <div class="mb-4">
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter password"> 
-                        </div>
-
-                        <div class="mb-4">
-                            <input type="password" class="form-control" id="confirm-password" name="confirm-password" placeholder="Confirm password">
-
-                            <?php if (isset($errors["pw"])): ?>
-                               <em> <span  class="invalid"><?= $errors["pw"] ?></span> </em>
-                            <?php elseif (isset($errors["pw-confirm"])): ?>
-                                <em> <span class="invalid"><?= $errors["pw-confirm"] ?></span>  </em> 
-                            <?php endif; ?>
-                        </div>
-
-                        <div class="d-grid">
-                        <button class="btn-signup" class="btn btn-primary mb-3">Sign Up</button>
-                            </div>
-                    </form>
-
-                    <div class="d-flex justify-content-center mt-3">
-                        <p>Already have an account? <a href="login.php" style="color: #977dff">Login</a></p>
+                        <?php if (isset($errors["name"])): ?>
+                            <em class="invalid"><?= $errors["name"] ?></em>
+                        <?php endif; ?>
                     </div>
 
+                    <div class="mb-4">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter email"
+                            value="<?= htmlspecialchars($email ?? "") ?>">
+
+                        <?php if (isset($errors["email"])): ?>
+                            <em class="invalid"><?= $errors["email"] ?></em>
+                        <?php elseif (isset($errors["email-taken"])): ?>
+                            <em class="invalid"><?= $errors["email-taken"] ?></em>
+                        <?php endif; ?>
+                    </div>
+
+                    <div class="mb-4">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter password">
+                    </div>
+
+                    <div class="mb-4">
+                        <input type="password" class="form-control" id="confirm-password" name="confirm-password" placeholder="Confirm password">
+
+                        <?php if (isset($errors["pw"])): ?>
+                            <em> <span class="invalid"><?= $errors["pw"] ?></span> </em>
+                        <?php elseif (isset($errors["pw-confirm"])): ?>
+                            <em> <span class="invalid"><?= $errors["pw-confirm"] ?></span> </em>
+                        <?php endif; ?>
+                    </div>
+
+                    <div class="d-grid">
+                        <button class="btn-signup" class="btn btn-primary mb-3">Sign Up</button>
+                    </div>
+                </form>
+
+                <div class="d-flex justify-content-center mt-3">
+                    <p>Already have an account? <a href="login.php" style="color: #977dff">Login</a></p>
                 </div>
+
             </div>
+        </div>
         </div>
     </main>
 </body>

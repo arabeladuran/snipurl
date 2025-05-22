@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+if(!isset($_SESSION["just_signed_up"])) {
+    header("Location: index.php");
+    exit;
+}
+
+unset($_SESSION["just_signed_up"]);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,6 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SignUp</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link href="styles/signup.css" rel="stylesheet">
 </head>
 
 <body>
@@ -17,11 +29,11 @@
     </div>
 
     <main>
-        <div class="container" style="margin-top: 50px; max-width: 500px;" id="form-cnt">
-            <div class="card">
-                <div class="card-body d-flex flex-column justify-content-center align-items-center">
-                    <h1 class="card-title mt-5"> Welcome! </h1>
-                    <a class="btn btn-primary my-5" href="dashboard.php">Continue to Dashboard</a>
+        <div class="container" style="margin-top: 100px;" id="form-cnt">
+            <div class="card border-0">
+                <div class="card-body d-flex flex-column justify-content-center align-items-center" style="min-width: 600px;">
+                    <h1 class="card-title mb-5" > Welcome! </h1>
+                    <a class="btn-signup" class="btn btn-primary my-5"  href="dashboard.php" style="text-decoration: none;">Continue to Dashboard</a>
                 </div>
             </div>
         </div>
