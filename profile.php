@@ -95,66 +95,63 @@ $user = $result->fetch_assoc();
 </head>
 
 <body>
-    <?php include "dashboard-nav.php"?>
+    <?php include "dashboard-nav.php" ?>
 
     <main>
         <div class="container d-flex justify-content-center align-items-center mt-5" style="max-width: 550px;">
             <div class="card card-body mx-auto">
-                    <h1 class="card-title">
-                        Edit Profile
-                    </h1>
+                <h1 class="card-title">
+                    Edit Profile
+                </h1>
 
-                    <?php if (isset($email_sent)): ?>
-                        <div class="alert alert-success mt-3">Changes has been saved.</div>
-                    <?php endif; ?>
+                <?php if (isset($email_sent)): ?>
+                    <div class="alert alert-success mt-3">Changes has been saved.</div>
+                <?php endif; ?>
 
-                    <form action="profile.php" method="post">
-                        <div class="mb-2">
-                            <label for="name" class="form-label">Name</label>
-                            <input type="text" name="name" id="name" class="form-control"
-                                value="<?= htmlspecialchars($_POST["name"] ?? $user['name']) ?>">
+                <form action="profile.php" method="post">
+                    <div class="mb-2">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" name="name" id="name" class="form-control"
+                            value="<?= htmlspecialchars($_POST["name"] ?? $user['name']) ?>">
 
-                            <?php if (isset($errors["name"])): ?>
-                                <em class="text-danger"><?= $errors["name"] ?></em>
-                            <?php endif; ?>
-                        </div>
+                        <?php if (isset($errors["name"])): ?>
+                            <em class="text-danger"><?= $errors["name"] ?></em>
+                        <?php endif; ?>
+                    </div>
 
-                        <div class="mb-2">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" name="email" id="email" class="form-control"
-                                value="<?= htmlspecialchars($_POST["email"] ?? $user['email']) ?>">
+                    <div class="mb-2">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" name="email" id="email" class="form-control"
+                            value="<?= htmlspecialchars($_POST["email"] ?? $user['email']) ?>">
 
-                            <?php if (isset($errors["email"])): ?>
-                                <em class="text-danger"><?= $errors["email"] ?></em>
-                            <?php elseif (isset($errors["email-taken"])): ?>
-                                <em class="text-danger"><?= $errors["email-taken"] ?></em>
-                            <?php endif; ?>
-                        </div>
+                        <?php if (isset($errors["email"])): ?>
+                            <em class="text-danger"><?= $errors["email"] ?></em>
+                        <?php elseif (isset($errors["email-taken"])): ?>
+                            <em class="text-danger"><?= $errors["email-taken"] ?></em>
+                        <?php endif; ?>
+                    </div>
 
-                        <h5 class="my-3">Change Password</h5>
-                        <div class="mb-3">
-                            <input type="password" name="password" id="password" class="form-control" placeholder="Old password">
-                        </div>
-                        <div class="mb-3">
-                            <input type="password" name="password" id="password" class="form-control" placeholder="New password">
-                        </div>
-                        <div class="mb-3">
-                            <input type="password" name="confirm-password" id="confirmpassword" class="form-control" placeholder="Confirm password">
+                    <h5 class="my-3">Change Password</h5>
+                    <div class="mb-3">
+                        <input type="password" name="password" id="password" class="form-control" placeholder="New password">
+                    </div>
+                    <div class="mb-3">
+                        <input type="password" name="confirm-password" id="confirmpassword" class="form-control mb-4" placeholder="Confirm password">
 
-                            <?php if (isset($errors["pw"])): ?>
-                                <em class="text-danger"><?= $errors["pw"] ?></em>
-                            <?php elseif (isset($errors["pw-confirm"])): ?>
-                                <em class="text-danger"><?= $errors["pw-confirm"] ?></em>
-                            <?php endif; ?>
-                        </div>
+                        <?php if (isset($errors["pw"])): ?>
+                            <div class="alert alert-danger"><?= $errors["pw"] ?></div>
+                        <?php elseif (isset($errors["pw-confirm"])): ?>
+                            <div class="alert alert-danger"><?= $errors["pw-confirm"] ?></div>
+                        <?php endif; ?>
+                    </div>
 
-                             <div class="d-flex align-items-center justify-content-between ">              
-                            <button class="btn-cancel" class="btn btn-secondary" type="button" onclick="history.back()">Back</button>
-                            <button class="btn-save" class="btn btn-primary" type="submit">Save Changes</button>
-                        </div>
-                    </form>
-                </div>
+                    <div class="d-flex align-items-center justify-content-between mt-3">
+                        <button class="btn-cancel" class="btn btn-secondary" type="button" onclick="history.back()">Back</button>
+                        <button class="btn-save" class="btn btn-primary" type="submit">Save Changes</button>
+                    </div>
+                </form>
             </div>
+        </div>
         </div>
     </main>
 </body>

@@ -35,6 +35,7 @@ $links = $result->fetch_all(MYSQLI_ASSOC);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Link History</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <link href="styles/links.css" rel="stylesheet">
     <link href="styles/nav.css" rel="stylesheet">
 </head>
@@ -66,7 +67,7 @@ $links = $result->fetch_all(MYSQLI_ASSOC);
                 <?php foreach ($links as $index => $link): ?>
                     <div class="card card-frame mx-auto mt-3 mb-4 p-3" style="max-width: 800px;" data-title="<?= htmlspecialchars(strtolower($link['title'] ?? 'untitled')) ?>"
                         data-url="<?= htmlspecialchars(strtolower($link['long_url'])) ?>">
-                        <div class="row align-items-center">
+                        <div class="row">
                             <div class="col-md-3 text-center mb-3">
                                 <?php if ((int)$link['has_qr'] === 1): ?>
                                     <?php
@@ -106,19 +107,25 @@ $links = $result->fetch_all(MYSQLI_ASSOC);
                                             localhost/SnipURL/<?= htmlspecialchars($link['short_url']) ?>
                                         </p>
                                     </a>
+
                                     <div>
                                         <p><?= htmlspecialchars($link['long_url']) ?></p>
+                                    </div>
+                                    <div class="d-flex gap-2 mb-2 ms-1">
+                                        <button class="btn-copy" onclick="copyToClipboard('short-url-<?= $index ?>')">
+                                            <i class="bi bi-clipboard ms-1"></i>
+                                        </button>
+
+                                        <?php if ((int)$link['has_qr'] === 1): ?>
+                                            <button class="btn-copy" onclick="downloadQR('qr-img-<?= $index ?>', '<?= $link['short_url'] ?>')">
+                                                <i class="bi bi-download ms-1"></i>
+                                            </button>
+                                        <?php endif; ?>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-md-3 d-flex flex-column justify-content-between align-items-end text-end">
-                                <div>
-                                    <button class="btn btn-outline-secondary btn-sm mb-2" onclick="copyToClipboard('short-url-<?= $index ?>')">Copy</button>
-                                    <?php if ((int)$link['has_qr'] === 1): ?>
-                                        <button class="btn btn-outline-secondary btn-sm mb-2" onclick="downloadQR('qr-img-<?= $index ?>', '<?= $link['short_url'] ?>')">Download QR</button>
-                                    <?php endif; ?>
-                                </div>
+                            <div class="col-md-3 d-flex justify-content-end text-end pt-1>
                                 <p class="text-muted mb-0" style="font-size: 0.85rem;">Created on <?= htmlspecialchars($link['created_at']) ?></p>
                             </div>
                         </div>

@@ -25,7 +25,7 @@
 }
 
 /* Styled Buttons */
-.btn, .dropdown-toggle, .dropdown-menu a {
+.btn, .dropdown-toggle {
   padding: 8px 20px;
   font-family: 'Poppins', sans-serif;
   font-weight: 700;
@@ -40,7 +40,7 @@
 }
 
 /* Hover Effects */
-.btn:hover, .dropdown-toggle:hover, .dropdown-menu a:hover {
+.btn:hover, .dropdown-toggle:hover {
   transform: scale(1.1);
   color: white !important;
 
@@ -56,11 +56,10 @@
   display: none;
   position: absolute;
   right: 0;
-  top: 110%;
-  background-color: #2a2a2a;
+  top: 56px;
+  background-color: white;
   border-radius: 10px;
   min-width: 140px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
   z-index: 1000;
   overflow: hidden;
 }
@@ -69,10 +68,22 @@
 .dropdown-menu a {
   display: block;
   padding: 10px 15px;
-  color: white;
+  color: black; /* Changed to black text */
   font-size: 0.9rem;
-  border-bottom: 1px solid #444;
+  border-bottom: 1px solid #ccc; /* Light gray separator */
   background: none;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+  font-weight: 400;
+}
+
+.dropdown-menu a:hover {
+  transform: scale(1.1);
+}
+
+.dropdown-menu a:active {
+  background-color: white;
+  color: black;
 }
 
 /* Remove border from last item */
