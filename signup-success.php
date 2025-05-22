@@ -5,36 +5,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SignUp</title>
-    <link href="styles/global.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 </head>
 
 <body>
     <!-- to be edited / removed-->
-    <nav>
-        <a href="index.php" class="nav-logo">SHORTURL</a>
-
-        <ul class="nav-links">
-            <li class="link"><a href="">Features</a></li>
-            <li class="link"><a href="">About</a></li>
-        </ul>
-
-        <div class="nav-btn">
-            <?php
-            if (isset($user)): ?>
-                <a href="logout.php" class="btn" id="signup-btn">Log out</a>
-            <?php else: ?>
-                <!-- If user is not logged in, redirect to sign up page -->
-                <a href="login.php" class="btn" id="login-btn">Log in</a>
-                <a href="signup.php" class="btn" id="signup-btn">Start for Free</a>
-            <?php endif; ?>
-
-        </div>
-    </nav>
+    <div class="container" style="max-width: 1200px;">
+        <nav class="navbar p-3">
+            <a href="index.php" class="nav-logo">SHORTURL</a>
+        </nav>
+    </div>
 
     <main>
-        <div class="container" id="form-cnt">
-            <h1> Welcome!  </h1>
-            <a href="dashboard.php">Continue to Dashboard</a>
+        <div class="container" style="margin-top: 50px; max-width: 500px;" id="form-cnt">
+            <div class="card">
+                <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                    <h1 class="card-title mt-5"> Welcome! </h1>
+                    <a class="btn btn-primary my-5" href="dashboard.php">Continue to Dashboard</a>
+                </div>
+            </div>
         </div>
     </main>
 </body>
