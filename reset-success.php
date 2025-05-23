@@ -17,10 +17,14 @@ unset($_SESSION["just_reset"]);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SignUp</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles/blobs.css">
     <link href="styles/signup.css" rel="stylesheet">
 </head>
 
 <body>
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+    <div class="blob blob3"></div>
     <!-- to be edited / removed-->
     <div class="container" style="max-width: 1200px;">
         <nav class="navbar p-3">

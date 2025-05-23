@@ -36,16 +36,20 @@ $links = $result->fetch_all(MYSQLI_ASSOC);
     <title>Link History</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles/blobs.css">
     <link href="styles/links.css" rel="stylesheet">
     <link href="styles/nav.css" rel="stylesheet">
 </head>
 
 <body>
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+    <div class="blob blob3"></div>
     <?php include "dashboard-nav.php" ?>
 
     <main>
-        <div class="container">
-            <div class="card mx-auto p-3 border-0" style="max-width: 800px;">
+        <div class="container" >
+            <div class="card mx-auto p-3 border-0" style="max-width: 800px; background-color: transparent">
                 <div class="row">
                     <h1>Your links</h1>
                 </div>
@@ -102,9 +106,9 @@ $links = $result->fetch_all(MYSQLI_ASSOC);
                                 </div>
 
                                 <div class="mb-1">
-                                    <a href="<?= htmlspecialchars('http://localhost/SnipURL/' . $link['short_url']) ?>" target="_blank">
+                                    <a href="<?= htmlspecialchars('https://snip-url.com/' . $link['short_url']) ?>" target="_blank">
                                         <p id="short-url-<?= $index ?>" class="short">
-                                            localhost/SnipURL/<?= htmlspecialchars($link['short_url']) ?>
+                                            snip-url.com/<?= htmlspecialchars($link['short_url']) ?>
                                         </p>
                                     </a>
 
@@ -126,7 +130,7 @@ $links = $result->fetch_all(MYSQLI_ASSOC);
                             </div>
 
                             <div class="col-md-3 d-flex justify-content-end text-end pt-1>
-                                <p class="text-muted mb-0" style="font-size: 0.85rem;">Created on <?= htmlspecialchars($link['created_at']) ?></p>
+                                <p class=" text-muted mb-0" style="font-size: 0.85rem;">Created on <?= htmlspecialchars($link['created_at']) ?></p>
                             </div>
                         </div>
                     </div>

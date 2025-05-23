@@ -17,6 +17,14 @@
   text-decoration: none;
 }
 
+.nav-logo img {
+  transition: ease 0.3s;
+}
+
+.nav-logo:hover img{
+  transform: scale(1.1);
+}
+
 /* Right side items */
 .nav-right {
   display: flex;

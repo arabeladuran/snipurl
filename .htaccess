@@ -1,3 +1,5 @@
 RewriteEngine on
 
 RewriteRule ^([a-zA-Z0-9]+)$ redirect.php?c=$1 [L]
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]

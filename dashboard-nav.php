@@ -2,7 +2,7 @@
     <a href="dashboard.php" class="nav-logo"><img src="assets/logo.png" alt="SnipURL Logo" style="height: 40px;"></a>
 
     <div class="nav-right">
-        <a href="dashboard.php" class="btn">Dashboard</a>
+        <a href="dashboard.php" class="btn" >Dashboard</a>
 
         <div class="dropdown">
             <button class="btn dropdown-toggle" id="profileBtn">Profile</button>

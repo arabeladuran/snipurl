@@ -144,22 +144,26 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="styles/dashboard.css" rel="stylesheet">
     <link href="styles/nav.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles/blobs.css">
 
 </head>
 
 <body>
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="blob blob3"></div>
 
     <?php include "dashboard-nav.php" ?>
 
     <main>
         <div class="container p-5" style="max-width: 700px;">
-            <div class="card border-0 p-3">
+            <div class="card border-0 px-3">
                 <div class="card-body">
                     <h1 class="card-title mb-3"> Snip your Links in a Snap. </h1>
                     <form method="post">
                         <div class="mb-4">
                             <label class="form-label" for="long-url">Enter long URL</label>
-                            <input type="text" id="long-url" name="long-url" placeholder="e.g. https://example.com/longlink" class="form-control"
+                            <input type="text" id="long-url" name="long-url" placeholder="e.g. https://example.com/longlink" class="form-control" style="border: 1px solid gray;"
                                 value="<?= htmlspecialchars($_POST["long_url"] ?? "") ?>">
 
 
@@ -170,16 +174,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         </div>
                         <div class="mb-4">
                             <label class="form-label" for="title">Title (Optional)</label>
-                            <input type="text" id="title" name="title" class="form-control"
+                            <input type="text" id="title" name="title" class="form-control"style="border: 1px solid gray;"
                                 value="<?= htmlspecialchars($_POST["title"] ?? "") ?>">
                         </div>
                         <div class="row mb-4">
                             <label for="short-url" class="form-label">Custom URL</label>
                             <div class="col">
-                                <input type="text" id="default-url" value="www.snip-url.com/" class="form-control" readonly>
+                                <input type="text" id="default-url" value="www.snip-url.com/" class="form-control" style="border: 1px solid gray;" readonly>
                             </div>
                             <div class="col">
-                                <input type="text" id="short-url" name="short-url" class="form-control"
+                                <input type="text" id="short-url" style="border: 1px solid gray;" name="short-url" class="form-control"
                                     value="<?= htmlspecialchars($_POST["short_url"] ?? "") ?>">
                             </div>
 
@@ -221,8 +225,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         <img id="qr-code-img" src="data:image/png;base64,<?= $qrImage ?>" alt="QR Code" class="img-fluid rounded border mb-3" style="max-width: 250px;">
                     <?php endif; ?>
                     <p class="form-label">Your short URL:</p>
-                    <a id="short-url-link" href="http://localhost/SnipURL/<?= $short_url ?>" target="_blank">
-                        http://localhost/SnipURL/<?= $short_url ?>
+                    <a id="short-url-link" href="https://snip-url.com/<?= $short_url ?>" target="_blank">
+                        snip-url.com/<?= $short_url ?>
                     </a>
                 </div>
                 <div class="modal-footer">

@@ -90,15 +90,19 @@ $user = $result->fetch_assoc();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles/blobs.css">
     <link href="styles/profile.css" rel="stylesheet">
     <link href="styles/nav.css" rel="stylesheet">
 </head>
 
 <body>
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+    <div class="blob blob3"></div>
     <?php include "dashboard-nav.php" ?>
 
     <main>
-        <div class="container d-flex justify-content-center align-items-center mt-5" style="max-width: 550px;">
+        <div class="container d-flex justify-content-center align-items-center mt-5 pt-3" style="max-width: 500px;">
             <div class="card card-body mx-auto">
                 <h1 class="card-title">
                     Edit Profile
@@ -110,8 +114,8 @@ $user = $result->fetch_assoc();
 
                 <form action="profile.php" method="post">
                     <div class="mb-2">
-                        <label for="name" class="form-label">Name</label>
-                        <input type="text" name="name" id="name" class="form-control"
+                        <label for="name" class="form-label mb-1">Name</label>
+                        <input type="text" name="name" id="name" class="form-control" style="border: 1px solid gray;"
                             value="<?= htmlspecialchars($_POST["name"] ?? $user['name']) ?>">
 
                         <?php if (isset($errors["name"])): ?>
@@ -120,8 +124,8 @@ $user = $result->fetch_assoc();
                     </div>
 
                     <div class="mb-2">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" name="email" id="email" class="form-control"
+                        <label for="email" class="form-label mb-1">Email</label>
+                        <input type="email" name="email" id="email" class="form-control" style="border: 1px solid gray;"
                             value="<?= htmlspecialchars($_POST["email"] ?? $user['email']) ?>">
 
                         <?php if (isset($errors["email"])): ?>
@@ -131,12 +135,12 @@ $user = $result->fetch_assoc();
                         <?php endif; ?>
                     </div>
 
-                    <h5 class="my-3">Change Password</h5>
-                    <div class="mb-3">
-                        <input type="password" name="password" id="password" class="form-control" placeholder="New password">
+                    <h5 class="mt-3">Change Password</h5>
+                    <div class="mb-2">
+                        <input type="password" name="password"  style="border: 1px solid gray;" id="password" class="form-control" placeholder="New password">
                     </div>
-                    <div class="mb-3">
-                        <input type="password" name="confirm-password" id="confirmpassword" class="form-control mb-4" placeholder="Confirm password">
+                    <div class="mb-5">
+                        <input type="password" name="confirm-password" id="confirmpassword" class="form-control mb-4" placeholder="Confirm password" style=" border: 1px solid gray;">
 
                         <?php if (isset($errors["pw"])): ?>
                             <div class="alert alert-danger"><?= $errors["pw"] ?></div>
@@ -146,7 +150,7 @@ $user = $result->fetch_assoc();
                     </div>
 
                     <div class="d-flex align-items-center justify-content-between mt-3">
-                        <button class="btn-cancel" class="btn btn-secondary" type="button" onclick="history.back()">Back</button>
+                        <button class="btn-cancel" type="button" onclick="history.back()">Back</button>
                         <button class="btn-save" class="btn btn-primary" type="submit">Save Changes</button>
                     </div>
                 </form>
