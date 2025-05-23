@@ -101,10 +101,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     </div>
 
                     <div class="d-grid pt-2">
-                        <button class="btn-send" class="btn btn-primary">Send</button>
+                        <button class="btn-send" class="btn btn-primary">Reset</button>
                 </form>
             </div>
-        </div>
         </div>
     </main>
 </body>

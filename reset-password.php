@@ -139,7 +139,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         <button class="btn-send">Change Password</button>
                     </div>
                 </form>
-
+                <div class="d-flex justify-content-center mb-2">
+                    <p>Already have an account? <a href="login.php" style="color: #977dff">Login</a></p>
+                </div>
             </div>
 
         </div>
