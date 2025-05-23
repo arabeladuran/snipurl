@@ -11,6 +11,13 @@ $mysqli = require __DIR__ . "/database.php";
 $user_id = $_SESSION["user_id"];
 $errors = [];
 
+$query = "SELECT * FROM users WHERE id = ? ";
+$stmt = $mysqli->prepare($query);
+$stmt->bind_param("i", $_SESSION["user_id"]);
+$stmt->execute();
+$result = $stmt->get_result();
+$user = $result->fetch_assoc();
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $name = trim($_POST["name"]);
     $email = trim($_POST["email"]);
@@ -52,9 +59,23 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if ($password !== $confirm_password) {
             $errors["pw-confirm"] = "Password does not match";
         }
+    }
 
-        // If valid, update the database
-        if (empty($errors)) {
+    // If valid, update the database
+    if (empty($errors)) {
+        $changesMade = false;
+
+        // Check if name or email changed
+        if ($name !== $user['name'] || $email !== $user['email']) {
+            $changesMade = true;
+        }
+
+        // Check if password is being changed
+        if (!empty($password)) {
+            $changesMade = true;
+        }
+
+        if ($changesMade) {
             if (!empty($password)) {
                 $password_hash = password_hash($password, PASSWORD_DEFAULT);
                 $stmt = $mysqli->prepare("UPDATE users SET name = ?, email = ?, password_hash = ? WHERE id = ?");
@@ -66,19 +87,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             if ($stmt->execute()) {
                 $success = true;
+
+                // Refresh user data
+                $query = "SELECT * FROM users WHERE id = ?";
+                $stmt = $mysqli->prepare($query);
+                $stmt->bind_param("i", $user_id);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                $user = $result->fetch_assoc();
             } else {
                 $errors["db"] = "Database error: " . $stmt->error;
             }
         }
     }
 }
-
-$query = "SELECT * FROM users WHERE id = ? ";
-$stmt = $mysqli->prepare($query);
-$stmt->bind_param("i", $_SESSION["user_id"]);
-$stmt->execute();
-$result = $stmt->get_result();
-$user = $result->fetch_assoc();
 ?>
 
 
@@ -88,7 +110,7 @@ $user = $result->fetch_assoc();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>SnipURL | Profile</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles/blobs.css">
     <link href="styles/profile.css" rel="stylesheet">
@@ -108,8 +130,8 @@ $user = $result->fetch_assoc();
                     Edit Profile
                 </h1>
 
-                <?php if (isset($email_sent)): ?>
-                    <div class="alert alert-success mt-3">Changes has been saved.</div>
+                <?php if (isset($success)): ?>
+                    <div class="alert alert-success mt-2">Changes has been saved.</div>
                 <?php endif; ?>
 
                 <form action="profile.php" method="post">
@@ -129,28 +151,28 @@ $user = $result->fetch_assoc();
                             value="<?= htmlspecialchars($_POST["email"] ?? $user['email']) ?>">
 
                         <?php if (isset($errors["email"])): ?>
-                            <em class="text-danger"><?= $errors["email"] ?></em>
+                            <em class="text-danger" style="padding-left: 5px;"><?= $errors["email"] ?></em>
                         <?php elseif (isset($errors["email-taken"])): ?>
-                            <em class="text-danger"><?= $errors["email-taken"] ?></em>
+                            <em class="text-danger" style="padding-left: 5px;"><?= $errors["email-taken"] ?></em>
                         <?php endif; ?>
                     </div>
 
                     <h5 class="mt-3">Change Password</h5>
                     <div class="mb-2">
-                        <input type="password" name="password"  style="border: 1px solid gray;" id="password" class="form-control" placeholder="New password">
+                        <input type="password" name="password" style="border: 1px solid gray;" id="password" class="form-control" placeholder="New password">
                     </div>
-                    <div class="mb-5">
-                        <input type="password" name="confirm-password" id="confirmpassword" class="form-control mb-4" placeholder="Confirm password" style=" border: 1px solid gray;">
+                    <div class="mb-4">
+                        <input type="password" name="confirm-password" id="confirmpassword" class="form-control" placeholder="Confirm password" style="margin-bottom: 2px; border: 1px solid gray;">
 
                         <?php if (isset($errors["pw"])): ?>
-                            <div class="alert alert-danger"><?= $errors["pw"] ?></div>
+                            <em class="text-danger" style="padding-left: 3px;"><?= $errors["pw"] ?></em>
                         <?php elseif (isset($errors["pw-confirm"])): ?>
-                            <div class="alert alert-danger"><?= $errors["pw-confirm"] ?></div>
+                            <em class="text-danger" style="padding-left: 3px;"><?= $errors["pw-confirm"] ?></em>
                         <?php endif; ?>
                     </div>
 
                     <div class="d-flex align-items-center justify-content-between mt-3">
-                        <button class="btn-cancel" type="button" onclick="history.back()">Back</button>
+                        <a class="btn-cancel" href="dashboard.php" style="text-decoration: none" ;>Back</a>
                         <button class="btn-save" class="btn btn-primary" type="submit">Save Changes</button>
                     </div>
                 </form>

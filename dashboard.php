@@ -80,7 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // form validation
     if (empty($long_url)) {
-        $errors["long_url"] =  "Enter a link";
+        $errors["long_url"] =  "Please enter a link";
     } elseif (! isLinkValid($long_url)) {
         $errors["long_url"] = "Please enter a valid link";
     }
@@ -140,7 +140,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>SnipURL | Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="styles/dashboard.css" rel="stylesheet">
     <link href="styles/nav.css" rel="stylesheet">
@@ -149,9 +149,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </head>
 
 <body>
-  <div class="blob blob1"></div>
-  <div class="blob blob2"></div>
-  <div class="blob blob3"></div>
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+    <div class="blob blob3"></div>
 
     <?php include "dashboard-nav.php" ?>
 
@@ -162,19 +162,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <h1 class="card-title mb-3"> Snip your Links in a Snap. </h1>
                     <form method="post">
                         <div class="mb-4">
-                            <label class="form-label" for="long-url">Enter long URL</label>
-                            <input type="text" id="long-url" name="long-url" placeholder="e.g. https://example.com/longlink" class="form-control" style="border: 1px solid gray;"
-                                value="<?= htmlspecialchars($_POST["long_url"] ?? "") ?>">
 
-
+                            <?php if (isset($errors["short_url"])): ?>
+                                <div class="alert alert-danger"><?= $errors["short_url"] ?></div>
+                            <?php endif; ?>
                             <?php if (isset($errors["long_url"])): ?>
-                                <em class="invalid"><?= $errors["long_url"] ?></em>
+                                <div class="alert alert-danger"><?= $errors["long_url"] ?></div>
                             <?php endif; ?><form method="post">
+
+                            <label class="form-label" for="long-url">Enter long URL</label>
+                            <input type="text" id="long-url" name="long-url" placeholder="e.g. https://example.com/longlink" class="form-control" style="border: 1px solid gray;" value="<?= htmlspecialchars($_POST["long_url"] ?? "") ?>">
 
                         </div>
                         <div class="mb-4">
                             <label class="form-label" for="title">Title (Optional)</label>
-                            <input type="text" id="title" name="title" class="form-control"style="border: 1px solid gray;"
+                            <input type="text" id="title" name="title" class="form-control" style="border: 1px solid gray;"
                                 value="<?= htmlspecialchars($_POST["title"] ?? "") ?>">
                         </div>
                         <div class="row mb-4">
@@ -187,12 +189,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                     value="<?= htmlspecialchars($_POST["short_url"] ?? "") ?>">
                             </div>
 
-                            <?php if (isset($errors["short_url"])): ?>
-                                <em class="invalid"><?= $errors["short_url"] ?></em>
-                            <?php endif; ?>
                         </div>
 
-                        <button class="btn-snip" id="form-btn">Snip your link</button>
+                        <button class="btn-snip mt-2 mb-0" id="form-btn">Snip your link</button>
                 </div>
 
                 </form>
@@ -229,7 +228,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         snip-url.com/<?= $short_url ?>
                     </a>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer" style="display: flex; justify-content: center; gap: 10px;">
                     <button class="btn-snip" onclick="copyToClipboard()">Copy</button>
                     <button class="btn-snip" onclick="downloadQR()">Download QR</button>
                 </div>

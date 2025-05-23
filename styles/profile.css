@@ -53,10 +53,6 @@
     box-shadow: 0 0px 5px var(--purp2); 
 }
 
-#confirmpassword{
-    margin-bottom: 40px;
-}
-
 .btn-cancel{
     background-color: white;
     padding: 8px 14px;

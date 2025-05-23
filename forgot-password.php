@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <p>Hello,</p>
         <p>You requested a password reset. Click the button below to reset it:</p>
         <p>
-            <a href="http://localhost/SnipURL/reset-password.php?token=$token" style="display:inline-block;padding:10px 20px;background-color:#4CAF50;color:#fff;text-decoration:none;border-radius:5px;">Reset Password</a>
+            <a href="https://snip-url.com/reset-password.php?token=$token" style="display:inline-block;padding:10px 20px;background-color:#4CAF50;color:#fff;text-decoration:none;border-radius:5px;">Reset Password</a>
         </p>
         <p>If you did not request this, please ignore this email.</p>
         <p>Thanks,<br>The SnipURL Team</p>
@@ -66,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forgot Password</title>
+    <title>SnipURL | Forgot Password</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles/blobs.css">
     <link href="styles/forgot-password.css" rel="stylesheet">
@@ -83,25 +83,27 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     <main>
         <div class="container">
-            <div class="card card-body mx-auto d-flex justify-content-between align-items-center" style="max-width: 500px;">
+            <div class="card card-body mx-auto d-flex justify-content-between align-items-center" style="width: 500px;">
                 <h1 class="card-title mt-3"> Forgot Password </h1>
 
                 <?php if (isset($email_sent)): ?>
-                    <div class="alert alert-success mt-3">If we find a matching account, we'll send you an email with password recovery instructions. Didn't receive an email? Check your spam folder or try another email address.</div>
+                    <div class="alert alert-success mt-3 mb-0" style="width: 400px;">
+                        If we find a matching account, we'll send you an email with password recovery instructions.
+                    </div>
                 <?php elseif (isset($invalid_email)): ?>
-                    <div class="alert alert-danger mt-3">
+                    <div class="alert alert-danger mt-4 mb-0" style="width: 400px">
                         Please enter your email address.
                     </div>
                 <?php endif; ?>
 
                 <form action="forgot-password.php" method="post">
                     <div class="mb-3">
-                        <label for="email" class="form-label pt-3">Email</label>
-                        <input type="email" id="email" name="email" class="form-control mb-3" style="width:300px; border: 1px solid gray;">
+                        <label for="email" class="form-label pt-3 mt-2">Email</label>
+                        <input type="email" id="email" name="email" class="form-control mb-3" style="width:400px; border: 1px solid gray;">
                     </div>
 
                     <div class="d-grid pt-2">
-                        <button class="btn-send" class="btn btn-primary">Reset</button>
+                        <button class="btn-send">Reset</button>
                 </form>
             </div>
         </div>

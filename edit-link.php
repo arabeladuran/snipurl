@@ -9,7 +9,6 @@ if (!isset($_SESSION["user_id"])) {
 
 $user_id = $_SESSION["user_id"];
 $errors = [];
-$success = "";
 $link = null;
 
 // Ensure short_url exists
@@ -91,8 +90,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["action"]) && $_POST["
     $check_stmt->execute();
     $check_result = $check_stmt->get_result();
 
-    if ($check_result->num_rows > 0) {
-        $errors[] = "Short URL is already taken.";
+    if (empty($errors) && $new_short_url !== $short_url) {
+        $check_query = "SELECT id FROM links WHERE short_url = ?";
+        $check_stmt = $mysqli->prepare($check_query);
+        $check_stmt->bind_param("s", $new_short_url);
+        $check_stmt->execute();
+        $check_result = $check_stmt->get_result();
+
+        if ($check_result->num_rows > 0) {
+            $errors[] = "Short URL is already taken.";
+        }
     }
 
     // If no errors, update
@@ -103,10 +110,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["action"]) && $_POST["
         $stmt->execute();
 
         if ($stmt->affected_rows > 0) {
-            header("Location: links.php");
-            exit;
+            $success = "Changes has been saved";
         } else {
-            $errors[] = "No changes made or unauthorized.";
+            $errors[] = "No changes made";
         }
     }
 }
@@ -119,9 +125,6 @@ if ($short_url && empty($errors)) {
     $stmt->execute();
     $result = $stmt->get_result();
     $link = $result->fetch_assoc();
-    if (!$link) {
-        $errors[] = "Link not found.";
-    }
 }
 
 ?>
@@ -131,7 +134,7 @@ if ($short_url && empty($errors)) {
 
 <head>
     <meta charset="UTF-8">
-    <title>Edit Link</title>
+    <title>SnipURL | Edit Link</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles/blobs.css">
     <link href="styles/edit-link.css" rel="stylesheet">
@@ -147,15 +150,19 @@ if ($short_url && empty($errors)) {
         <div class="container d-flex justify-content-center align-items-center">
             <div class="card card-body mx-auto" style="max-width: 500px;">
                 <h1 class="card-title">Edit Link</h1>
+
+                <?php if (isset($success)): ?>
+                    <div class="alert alert-success mt-3 mb-0"><?= $success ?></div>
+                <?php endif; ?>
+
                 <?php if (!empty($errors)): ?>
-                    <div class="form-errors">
-                        <ul>
-                            <?php foreach ($errors as $error): ?>
-                                <li style="color: red;"><?= htmlspecialchars($error) ?></li>
-                            <?php endforeach; ?>
-                        </ul>
+                    <div class="alert alert-danger mt-3 mb-0">
+                        <?php foreach ($errors as $error): ?>
+                            <?= htmlspecialchars($error) ?>
+                        <?php endforeach; ?>
                     </div>
                 <?php endif; ?>
+
                 <form method="POST">
                     <input type="hidden" name="short_url" value="<?= htmlspecialchars($_POST['short_url'] ?? $link['short_url'] ?? '') ?>">
                     <input type="hidden" name="action" value="save">
@@ -188,11 +195,6 @@ if ($short_url && empty($errors)) {
                     </div>
                 </form>
             </div>
-        </div>
-
-
-
-
         </div>
     </main>
 </body>

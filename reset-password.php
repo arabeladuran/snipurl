@@ -97,7 +97,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>SnipURL | Reset Password</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles/blobs.css">
     <link href="styles/forgot-password.css" rel="stylesheet">
@@ -118,10 +118,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <h1 class="card-title my-3"> Reset Password </h1>
 
                 <?php if (isset($errors["pw"])): ?>
-                    <div class="alert alert-danger"><?= $errors["pw"] ?></div>
+                    <div class="alert alert-danger" style="width: 300px; text-align: left; margin-bottom: 2px;"><?= $errors["pw"] ?></div>
                 <?php elseif (isset($errors["pw-confirm"])): ?>
-                    <div class="alert alert-danger"><?= $errors["pw-confirm"] ?></div>
+                    <div class="alert alert-danger" style="width: 300px; margin-bottom: 2px;"><?= $errors["pw-confirm"] ?></div>
                 <?php endif; ?>
+
                 <form action="reset-password.php" method="post">
                     <input type="hidden" name="token" value="<?= htmlspecialchars($token) ?>">
 
@@ -136,12 +137,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     </div>
 
                     <div class="div pt-2">
-                        <button class="btn-send">Change Password</button>
+                        <button class="btn-send" style="width: 300px;">Change Password</button>
                     </div>
                 </form>
-                <div class="d-flex justify-content-center mb-2">
-                    <p>Already have an account? <a href="login.php" style="color: #977dff">Login</a></p>
-                </div>
+
             </div>
 
         </div>

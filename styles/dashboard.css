@@ -13,8 +13,14 @@ p {
 }
 
 .card {
-    margin-bottom: 70px;
-    box-shadow: 0 4px 4px var(--purp);
+    padding: 40px;
+    font-family: 'Poppins';
+    margin-top: 20px;
+    margin: auto;
+    border-radius: 10px;
+
+    background-color: white;
+    box-shadow: 0 2px 4px var(--purp);
 }
 
 .card-title {
@@ -30,13 +36,10 @@ p {
     font-weight: 900;
 }
 
+
 .card-body {
-    padding: 40px;
     font-family: 'Poppins';
-    margin-bottom: 20px;
-    margin-top: 20px;
-    margin: auto;
-    border-radius: 10px;
+    width: 100%;
 }
 
 .form-label {

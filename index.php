@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Snip URL</title>
+  <title>SnipURL</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -123,7 +123,7 @@
     .card {
       background: white;
       border-radius: 20px;
-      padding: 50px;
+      padding: 40px 50px;
       box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
       width: 95vw;
       max-width: 600px;
@@ -131,7 +131,7 @@
 
 
     .card h1 {
-      font-size: 2.5rem;
+      font-size: 2.6rem;
       margin-bottom: 20px;
       font-weight: 900;
     }
@@ -172,24 +172,32 @@
     }
 
     .btn {
-      background: #2c1e4a;
+       margin-top: 12px;
+      padding: 8px 30px;
+      display: inline-block;
       color: white;
+      font-size: 1.1rem;
+      font-weight: 800;
       border: none;
-      padding: 12px 24px;
       border-radius: 10px;
-      font-size: 1rem;
+      box-shadow: 0 1px 3px grey;
+      background: #2c1e4a;
+      transition: transform 0.3s ease;
+      
       cursor: pointer;
-      transition: transform 0.2s ease;
     }
 
     .btn:hover {
-      background: #49366d;
+      background-image: linear-gradient(130deg, #1b283a, #3113a8);
       transform: scale(1.1);
     }
 
     #btn-snip {
-      padding: 8px 30px;
+      margin-top: 12px;
+      padding: 8px 40px;
+      display: inline-block;
       color: white;
+      font-size: 1.1rem;
       font-weight: 800;
       border: none;
       border-radius: 10px;
@@ -229,13 +237,6 @@
       gap: 15px;
     }
 
-    .navbar .btn {
-      padding: 10px 20px;
-      border-radius: 12px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-
     @media (max-width: 600px) {
       .card h1 {
         font-size: 1.8rem;
@@ -261,7 +262,7 @@
     </a>
     <div class="nav-right">
       <a href="login.php" class="btn">Login</a>
-      <a href="signup.php" class="btn">Start for Free</a>
+      <a href="signup.php" class="btn" >Start for Free</a>
     </div>
   </nav>
 
@@ -270,7 +271,7 @@
       <h1>LET’S KEEP THINGS SHORT</h1>
       <input type="url" style="border: 1px solid gray;" placeholder="PASTE YOUR LINK HERE" />
       <br />
-      <button class="btn" id="btn-snip">SNIP URL</button>
+      <a href="signup.php" class="btn" id="btn-snip">SNIP</a>
     </div>
   </div>
 </body>
