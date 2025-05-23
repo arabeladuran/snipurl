@@ -47,12 +47,12 @@ function isLinkValid(&$long_url)
         return false;
     }
 
-    // host must contain at least one dot (e.g., example.com)
+    // host must contain at least one dot
     if (substr_count($url_parts['host'], '.') < 1) {
         return false;
     }
 
-    // heck that domain and TLD have minimum length, e.g. domain >= 2 chars
+    // check that domain and TLD have minimum length
     $host_parts = explode('.', $url_parts['host']);
     foreach ($host_parts as $part) {
         if (strlen($part) < 2) {
@@ -83,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["action"]) && $_POST["
         $title = "Untitled";
     }
 
-    // Check if short URL is taken (excluding this current row)
+    // Check if short URL is taken (excluding current row)
     $check_query = "SELECT id FROM links WHERE short_url = ? AND short_url != ?";
     $check_stmt = $mysqli->prepare($check_query);
     $check_stmt->bind_param("ss", $new_short_url, $short_url);

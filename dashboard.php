@@ -51,22 +51,20 @@ function isLinkValid(&$long_url)
         return false;
     }
 
-    // host must contain at least one dot (e.g., example.com)
+    // check if host has at least one dot (example.com)
     if (substr_count($url_parts['host'], '.') < 1) {
         return false;
     }
 
-    // heck that domain and TLD have minimum length, e.g. domain >= 2 chars
+    // check domain and TLD have minimum length, (domain >= 2 chars)
     $host_parts = explode('.', $url_parts['host']);
     foreach ($host_parts as $part) {
         if (strlen($part) < 2) {
             return false;
         }
     }
-
     return true;
 }
-
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
@@ -236,8 +234,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         </div>
     </div>
 
-
-    <!-- Bootstrap JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         function copyToClipboard() {

@@ -1,6 +1,6 @@
 # SnipURL
 
-A php-based custom URL shortener with QR generator.
+A php-based custom URL shortener with QR generator and user authentication.
 
 ## Getting Started
 - Download and intsall [Composer](https://getcomposer.org)
